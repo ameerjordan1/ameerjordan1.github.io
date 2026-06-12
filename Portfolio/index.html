@@ -1,0 +1,1152 @@
+<!DOCTYPE HTML>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Ameer Jordan - Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<span class="icon solid fa-laptop"></span>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Data Science & Analytics</h1>
+								<h2>Portfolio Projects</h2>
+								<h3>Ameer Jordan</h3>
+								<p>Welcome to my portfolio Website! You can find a list of my projects, social media links, and more.</p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="#experience">Experience</a></li>
+								<li><a href="#projects">Projects</a></li>
+								<li><a href="#about">About</a></li>
+								<li><a href="#contact">Contact</a></li>
+								<!--<li><a href="#elements">Elements</a></li>-->
+							</ul>
+						</nav>
+						
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Intro -->
+							<article id="experience">
+								<h2 class="major">Experience</h2>
+								  <div class="timeline">
+
+
+									<div class="timeline-item">
+										<div class="timeline-marker"></div>
+										<div class="timeline-content">
+											<span class="timeline-date">Sep 2025 – Present</span>
+											<h3>Data Coordinator Associate</h3>
+											<h4>DraftKings</h4>
+											<p>Monitored and verified real-time sports data feeds during live sporting events to ensure accuracy and consistency across internal systems and customer-facing platforms. Collaborated with operations and analytics teams to maintain data integrity, support live event operations, and improve workflow efficiency.</p>    
+										</div>
+									</div>    
+								</div>
+							</article>
+
+<style>
+  .timeline {
+    position: relative;
+    padding: 1rem 0;
+  }
+
+  /* Vertical line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.65rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-marker {
+    flex-shrink: 0;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background: #1b1f22;
+    margin-top: 0.25rem;
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease;
+  }
+
+  .timeline-item.visible .timeline-marker {
+    background: #ffffff;
+  }
+
+  .timeline-content {
+    flex: 1;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .timeline-item:last-child .timeline-content {
+    border-bottom: none;
+  }
+
+  .timeline-date {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-content h3 {
+    font-size: 0.95rem;
+    margin: 0 0 0.2rem 0;
+    letter-spacing: 0.1rem;
+  }
+
+  .timeline-content h4 {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin: 0 0 0.75rem 0;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  // Animate timeline items as they scroll into view inside the article
+  const experienceArticle = document.getElementById('experience');
+
+  function checkTimelineVisibility() {
+    const items = experienceArticle.querySelectorAll('.timeline-item');
+    const containerRect = experienceArticle.getBoundingClientRect();
+
+    items.forEach((item, index) => {
+      const itemRect = item.getBoundingClientRect();
+      const isVisible = itemRect.top < containerRect.bottom - 20 &&
+                        itemRect.bottom > containerRect.top + 20;
+      if (isVisible) {
+        setTimeout(() => item.classList.add('visible'), index * 150);
+      }
+    });
+  }
+
+  // Watch for the experience article becoming active, then trigger animation
+  const expObserver = new MutationObserver(() => {
+    if (experienceArticle.classList.contains('active')) {
+      setTimeout(checkTimelineVisibility, 100);
+      experienceArticle.addEventListener('scroll', checkTimelineVisibility);
+    } else {
+      // Reset when closed
+      experienceArticle.querySelectorAll('.timeline-item')
+        .forEach(item => item.classList.remove('visible'));
+      experienceArticle.removeEventListener('scroll', checkTimelineVisibility);
+    }
+  });
+
+  expObserver.observe(experienceArticle, { attributes: true });
+</script>
+
+						<!-- Projects -->
+							<article id="projects">
+								<h2 class="major">Projects</h2>
+								<span class="image main"><img src="Data Science Banner.jpg" alt="" /></span>
+								<p>Here you'll find a collection of my work spanning two core disciplines of the data field. Use the buttons below to browse between Data Science projects — where I apply machine learning, predictive modeling, and statistical analysis — and Data Analysis projects — where I focus on uncovering insights through data cleaning, visualization, and reporting. Each project reflects my approach to turning raw data into meaningful results.</p>
+  
+								<!-- Category Toggle -->
+									<div class="project-toggle">
+										<button class="toggle-btn" onclick="showCategory('data-science', this)">Data Science</button>
+										<button class="toggle-btn" onclick="showCategory('data-analysis', this)">Data Analysis</button>
+									</div>
+
+								<!-- Data Science Projects (hidden by default) -->
+<div id="data-science" class="project-category" style="display:none;">
+    
+
+    <!-- Project Card (collapsed preview only) -->
+<div class="project-card" onclick="openModal('sentiment-modal')">
+    <div class="project-preview">
+        <div class="project-preview-inner">
+            <span class="project-icon icon solid fa-comments"></span>
+            <h4 class="project-title">Sentiment Analysis Amazon Reviews</h4>
+            <p class="project-subtitle">Python · NLTK · HuggingFace · Transformers</p>
+            <span class="project-hint">Click to expand</span>
+        </div>
+    </div>
+</div>
+
+<!-- Project Card: Fake News Detection -->
+<div class="project-card" onclick="openModal('fakenews-modal')">
+    <div class="project-preview">
+        <div class="project-preview-inner">
+            <span class="project-icon icon solid fa-newspaper"></span>
+            <h4 class="project-title">Fake News Detection</h4>
+            <p class="project-subtitle">Python · Scikit-learn · TF-IDF</p>
+            <span class="project-hint">Click to expand</span>
+        </div>
+    </div>
+</div>
+
+<!-- Project Card: Movie Recommendation System -->
+<div class="project-card" onclick="openModal('movierec-modal')">
+    <div class="project-preview">
+        <div class="project-preview-inner">
+            <span class="project-icon icon solid fa-film"></span>
+            <h4 class="project-title">Movie Recommendation System</h4>
+            <p class="project-subtitle">Python · Scikit-learn · Streamlit · TMDB API</p>
+            <span class="project-hint">Click to expand</span>
+        </div>
+    </div>
+</div>
+
+									<!-- Data Analysis Projects (hidden by default) -->
+										<div id="data-analysis" class="project-category" style="display:none;">
+											<h3>Data Analysis Projects</h3>
+											<p>Your Data Analysis project descriptions go here...</p>
+										</div>
+									</article>
+
+<style>
+  .project-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5em;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 0.6em 1.2em;
+    background: transparent;
+    border: 2px solid #ffffff44;
+    color: inherit;
+    font-size: 0.85em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;        /* force center alignment */
+    line-height: 1;            /* prevent vertical offset */
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* centers text inside flex button */
+  }
+
+  .toggle-btn:hover {
+    background: #ffffff22;
+    border-color: #ffffff88;
+  }
+
+  .toggle-btn.active {
+    background: #ffffff22;
+    border-color: #fff;
+    font-weight: bold;
+  }
+
+  .project-category {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+#projects .image.main {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+#projects .image.main img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+  /* ── Project Card ── */
+  .project-card {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  /* Preview (collapsed state) */
+  .project-preview {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .project-preview-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .project-icon {
+    font-size: 1.3rem;
+    opacity: 0.75;
+    flex-shrink: 0;
+  }
+
+  .project-title {
+    margin: 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.1rem;
+    flex: 1;
+  }
+
+  .project-subtitle {
+    margin: 0;
+    font-size: 0.7rem;
+    opacity: 0.55;
+    letter-spacing: 0.08rem;
+    flex-shrink: 0;
+  }
+
+  .project-hint {
+    font-size: 0.65rem;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+    margin-left: 0.75rem;
+  }
+
+  .project-card:hover .project-hint {
+    opacity: 0.5;
+  }
+
+  /* Body (expanded state) */
+  .project-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .project-body h4 {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .project-body h5 {
+    margin: 1rem 0 0.4rem 0;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+  }
+
+  .project-body p {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .project-body pre {
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 0.75rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+
+  .project-card.open .project-body {
+    display: block;
+  }
+
+  /* Close button inside expanded card */
+  .project-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+    cursor: pointer;
+    height: auto;
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    letter-spacing: 0;
+    transition: color 0.2s;
+  }
+
+  .project-close:hover {
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
+
+.notebook-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .notebook-frame {
+    width: 100%;
+    height: 600px;
+    border: none;
+    background: #fff;
+    display: block;
+    border-radius: 4px;
+  }
+  /* ── Modal Overlay ── */
+  .project-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-modal.open {
+    display: flex;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .modal-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(27, 31, 34, 0.97);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    width: 92vw;
+    max-width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.97) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 50%;
+    letter-spacing: 0;
+    transition: background 0.2s, color 0.2s;
+    z-index: 2;
+  }
+
+  .modal-close:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .modal-content {
+    padding: 2rem 2rem 2rem 2rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .modal-content h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    padding-right: 2rem; /* avoid overlap with close btn */
+  }
+
+  .modal-content h5 {
+    font-size: 0.72rem;
+    opacity: 0.6;
+    letter-spacing: 0.18rem;
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem 0;
+  }
+
+  .modal-description {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 0;
+  }
+
+  .modal-content p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 0;
+  }
+
+  /* Notebook fills available modal space */
+  .modal-content .notebook-wrapper {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .modal-content .notebook-frame {
+    width: 100%;
+    height: 65vh;
+    border: none;
+    background: #fff;
+    display: block;
+  }
+  /* Force modal to cover full viewport and center its container */
+   .project-modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .project-modal.open {
+    display: flex;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+  }
+
+  .modal-container {
+    position: relative;
+    margin: auto;
+    width: 92vw;
+    max-width: 92vw;
+    height: 90vh;
+  }
+
+  .modal-content .notebook-frame {
+    height: 70vh;
+  }
+  .code-block-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    margin: 0.5rem 0 1.5rem 0;
+}
+
+.code-block-wrapper pre {
+    margin: 0;
+    padding: 1rem;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.code-block-wrapper code {
+    font-family: 'Courier New', Courier, monospace;
+}
+</style>
+
+<script>
+  function showCategory(category, btn) {
+    const allCategories = document.querySelectorAll('.project-category');
+    const allButtons = document.querySelectorAll('.toggle-btn');
+    const target = document.getElementById(category);
+
+    // If already active, toggle it off
+    if (btn.classList.contains('active')) {
+      target.style.display = 'none';
+      btn.classList.remove('active');
+      return;
+    }
+
+    // Hide all, deactivate all buttons
+    allCategories.forEach(el => el.style.display = 'none');
+    allButtons.forEach(b => b.classList.remove('active'));
+
+    // Show selected
+    target.style.display = 'block';
+    btn.classList.add('active');
+  }
+  // Reset projects section when it closes
+  function resetProjects() {
+    document.querySelectorAll('.project-category').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+  }
+
+  // Watch for the projects article being closed
+  const projectsArticle = document.getElementById('projects');
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        const isActive = projectsArticle.classList.contains('active');
+        if (!isActive) {
+          resetProjects();
+        }
+      }
+    });
+  });
+
+  observer.observe(projectsArticle, { attributes: true });
+
+  function toggleProject(card) {
+    card.classList.toggle('open');
+  }
+
+  function closeProject(event, btn) {
+    event.stopPropagation(); // prevent card toggle from firing
+    btn.closest('.project-card').classList.remove('open');
+  }
+   function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+
+ function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+
+    setTimeout(function() {
+        $('article').removeClass('active').hide();
+        var $projects = $('#projects');
+        $projects.show();
+        $projects.addClass('active');
+    }, 50);
+}
+  
+</script>
+							</article>
+
+						
+
+							<!-- About -->
+							<article id="about">
+								<h2 class="major">About</h2>
+								<div class="about-content">
+									<div class="about-text">
+										<p>I'm Ameer, an aspiring Data Scientist and Analyst with a passion for transforming raw data into meaningful insights. With a foundation in statistical analysis, machine learning, and data visualization, I enjoy tackling complex problems and finding data-driven solutions that make an impact.</p>
+										<p>I'm continuously expanding my skill set and seeking opportunities to apply my knowledge in real-world settings.</p>
+										<p>Feel free to explore <a href="#projects">my projects</a> and don't hesitate to <a href="#contact">reach out</a> — I'm always open to collaborating and connecting with others in the field.</p>
+									</div>
+									<img src="Ameer.jpg" alt="" class="oval-portrait" />
+								</div>
+							</article>
+
+<style>
+  .about-content {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+  }
+
+  .about-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;  /* stacks paragraphs vertically */
+    gap: 1em;                /* space between paragraphs */
+  }
+
+  .about-text p {
+    margin: 0;
+  }
+
+  #about .oval-portrait {
+    width: 180px;
+    height: 230px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: transparent;
+    box-shadow: none;
+	align-self: flex-start;  
+  	margin-top: -0.5rem; 
+  }
+
+  #about .image.main {
+    display: none;
+  }
+
+
+</style>
+
+						<!-- Contact -->
+							<article id="contact">
+								<h2 class="major">Contact</h2>
+								<form method="post" action="https://formspree.io/f/maqkzbao">
+									<div class="fields">
+										<div class="field half">
+											<label for="name">Name</label>
+											<input type="text" name="name" id="name" />
+										</div>
+										<div class="field half">
+											<label for="email">Email</label>
+											<input type="text" name="email" id="email" />
+										</div>
+										<div class="field">
+											<label for="message">Message</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</form>
+								<ul class="icons">
+									<li><a href="https://www.linkedin.com/in/ameer-jordan-753461216" target ="_blank"class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/ameerjordan1" target ="_blank"class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</article>
+
+						<!-- Elements -->
+							<article id="elements">
+								<h2 class="major">Elements</h2>
+
+								<section>
+									<h3 class="major">Text</h3>
+									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+									<hr />
+									<h2>Heading Level 2</h2>
+									<h3>Heading Level 3</h3>
+									<h4>Heading Level 4</h4>
+									<h5>Heading Level 5</h5>
+									<h6>Heading Level 6</h6>
+									<hr />
+									<h4>Blockquote</h4>
+									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+									<h4>Preformatted</h4>
+									<pre><code>i = 0;
+
+while (!deck.isInOrder()) {
+    print 'Iteration ' + i;
+    deck.shuffle();
+    i++;
+}
+
+print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+								</section>
+
+								<section>
+									<h3 class="major">Lists</h3>
+
+									<h4>Unordered</h4>
+									<ul>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
+
+									<h4>Alternate</h4>
+									<ul class="alt">
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
+
+									<h4>Ordered</h4>
+									<ol>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis viverra.</li>
+										<li>Felis enim feugiat.</li>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis lorem.</li>
+										<li>Felis enim et feugiat.</li>
+									</ol>
+									<h4>Icons</h4>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+									</ul>
+
+									<h4>Actions</h4>
+									<ul class="actions">
+										<li><a href="#" class="button primary">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions stacked">
+										<li><a href="#" class="button primary">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+								</section>
+
+								<section>
+									<h3 class="major">Table</h3>
+									<h4>Default</h4>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+
+									<h4>Alternate</h4>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</section>
+
+								<section>
+									<h3 class="major">Buttons</h3>
+									<ul class="actions">
+										<li><a href="#" class="button primary">Primary</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button">Default</a></li>
+										<li><a href="#" class="button small">Small</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
+										<li><a href="#" class="button icon solid fa-download">Icon</a></li>
+									</ul>
+									<ul class="actions">
+										<li><span class="button primary disabled">Disabled</span></li>
+										<li><span class="button disabled">Disabled</span></li>
+									</ul>
+								</section>
+
+								<section>
+									<h3 class="major">Form</h3>
+									<form method="post" action="#">
+										<div class="fields">
+											<div class="field half">
+												<label for="demo-name">Name</label>
+												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
+											</div>
+											<div class="field half">
+												<label for="demo-email">Email</label>
+												<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
+											</div>
+											<div class="field">
+												<label for="demo-category">Category</label>
+												<select name="demo-category" id="demo-category">
+													<option value="">-</option>
+													<option value="1">Manufacturing</option>
+													<option value="1">Shipping</option>
+													<option value="1">Administration</option>
+													<option value="1">Human Resources</option>
+												</select>
+											</div>
+											<div class="field half">
+												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+												<label for="demo-priority-low">Low</label>
+											</div>
+											<div class="field half">
+												<input type="radio" id="demo-priority-high" name="demo-priority">
+												<label for="demo-priority-high">High</label>
+											</div>
+											<div class="field half">
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Email me a copy</label>
+											</div>
+											<div class="field half">
+												<input type="checkbox" id="demo-human" name="demo-human" checked>
+												<label for="demo-human">Not a robot</label>
+											</div>
+											<div class="field">
+												<label for="demo-message">Message</label>
+												<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+											</div>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" value="Send Message" class="primary" /></li>
+											<li><input type="reset" value="Reset" /></li>
+										</ul>
+									</form>
+								</section>
+
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+<!-- Fullscreen Modal -->
+<div id="sentiment-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('sentiment-modal')"></div>
+    <div class="modal-container">
+
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('sentiment-modal')">✕</button>
+
+        <div class="modal-content">
+            <h4>Sentiment Analysis with NLTK & HuggingFace Transformers</h4>
+            <p class="modal-description">This project applies Natural Language Processing techniques to classify sentiment in over 500,000 Amazon product reviews. Using both NLTK's VADER model and a HuggingFace RoBERTa transformer, review text is scored and compared across positive, neutral, and negative categories, with results visualized against star ratings.</p>
+
+            <h5>Notebook</h5>
+            <div class="notebook-wrapper">
+                <iframe
+                    src="Sentiment Analysis Project with NLTK and HuggingFace Transformers. Classify Amazon Reviews.html"
+                    class="notebook-frame"
+                    title="Sentiment Analysis Notebook">
+                </iframe>
+            </div>
+
+            <h5>Results</h5>
+            <p>Across 500 Amazon reviews, both models performed well but told different stories. VADER's compound scores trended in the expected direction — lower for 1-star reviews and higher for 5-star reviews — but showed notable overlap between mid-range ratings (2–4 stars), where sarcasm and nuanced language challenged its rule-based approach. The RoBERTa transformer consistently produced sharper, more confident sentiment separations, particularly on reviews where the tone contradicted the literal word choice — something VADER's bag-of-words method struggled to detect.</p>
+
+        </div>
+
+    </div>
+</div>
+<!-- Fullscreen Modal: Fake News Detection -->
+<div id="fakenews-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('fakenews-modal')"></div>
+    <div class="modal-container">
+
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('fakenews-modal')">✕</button>
+
+        <div class="modal-content">
+            <h4>Fake News Detection System</h4>
+            <p class="modal-description">This project builds a machine learning pipeline that classifies news articles as Fake or Real based on their text content. The workflow covers loading and merging labeled fake/real news datasets, cleaning and preprocessing article text, vectorizing it with TF-IDF, and training multiple classification models to compare performance.</p>
+
+            <h5>Notebook</h5>
+            <div class="notebook-wrapper">
+                <iframe
+                    src="Fake_News_Detection.html"
+                    class="notebook-frame"
+                    title="Fake News Detection Notebook">
+                </iframe>
+            </div>
+
+            <h5>Results</h5>
+            <p>All four models performed exceptionally well on the held-out test set of over 11,000 articles. Logistic Regression and Random Forest both achieved roughly 98.8% accuracy, while the Decision Tree and Gradient Boosting classifiers edged slightly higher at around 99.5%, with near-perfect precision, recall, and F1-scores across both classes. On manual testing with unseen news articles, all four models agreed consistently — correctly flagging fabricated stories as Fake News and legitimate reporting as Real News.</p>
+
+            
+        </div>
+
+    </div>
+</div>
+<!-- Fullscreen Modal: Movie Recommendation System -->
+<div id="movierec-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('movierec-modal')"></div>
+    <div class="modal-container">
+ 
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('movierec-modal')">✕</button>
+ 
+        <div class="modal-content">
+            <h4>Movie Recommendation System</h4>
+            <p class="modal-description">This project builds a content-based movie recommender using cosine similarity over movie metadata. A user selects a movie they like, and the system returns the top 5 most similar titles along with live poster artwork pulled from The Movie Database (TMDB) API. The recommendation logic and similarity matrix were developed in the notebook below, then deployed as an interactive Streamlit app.</p>
+ 
+            <h5>Notebook</h5>
+            <div class="notebook-wrapper">
+                <iframe
+                    src="Movie Recommendation System.html"
+                    class="notebook-frame"
+                    title="Movie Recommendation System Notebook">
+                </iframe>
+            </div>
+ 
+            <h5>Try It Out</h5>
+            <div class="notebook-wrapper">
+                
+                <iframe
+                    src="https://ameerjordanmoviers.streamlit.app/?embed=true"
+                    class="notebook-frame streamlit-frame"
+                    title="Movie Recommendation System App"
+                    allow="clipboard-write">
+                </iframe>
+            </div>
+ 
+            <h5>Results</h5>
+            <p>The recommendation system was tested across multiple genres and consistently returned thematically relevant results. For example, The Godfather returned The Godfather: Part II as its top match, along with other crime dramas (Joker, Blood Ties, Bomb City, Gotti) — showing strong alignment on genre and tone.</p>
+ <h5>Source Code (app.py)</h5>
+<div class="code-block-wrapper">
+    <pre><code class="language-python" id="appcode">Loading...</code></pre>
+</div>
+        </div>
+ 
+    </div>
+</div>
+ 
+ 
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+      <script>
+    hljs.highlightAll();
+</script>
+<script>
+    fetch('app.py')
+        .then(response => response.text())
+        .then(code => {
+            const el = document.getElementById('appcode');
+            el.textContent = code;
+            hljs.highlightElement(el);
+        })
+        .catch(() => {
+            document.getElementById('appcode').textContent = 'Could not load source file.';
+        });
+</script>
+
+	</body>
+</html>
