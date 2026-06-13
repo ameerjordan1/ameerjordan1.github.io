@@ -759,6 +759,280 @@
 
 </style>
 
+<style>
+  /* ===== Walmart SQL section — matches dark portfolio theme ===== */
+
+  .sql-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .sql-chip {
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.3rem 0.85rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    opacity: 0.85;
+  }
+
+  /* ----- Schema table ----- */
+  .sql-schema-table {
+    max-width: 460px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ----- Query cards ----- */
+  .sql-query-card {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .sql-query-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sql-query-num {
+    font-weight: bold;
+    font-size: 1.4rem;
+    opacity: 0.35;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .sql-query-head-text { flex: 1; }
+
+  .sql-query-title {
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.05rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .sql-query-desc {
+    font-size: 0.78rem;
+    opacity: 0.65;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sql-stamp {
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    padding: 0.25rem 0.55rem;
+    opacity: 0.7;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sql-query-card .code-block-wrapper {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ----- Results / schema tables ----- */
+  .sql-results-wrap {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .sql-results-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14rem;
+    opacity: 0.5;
+    margin-bottom: 0.6rem;
+  }
+
+  table.sql-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  table.sql-table th,
+  table.sql-table td {
+    text-align: left;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+
+  table.sql-table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.08rem;
+    opacity: 0.55;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+
+  table.sql-table tr:last-child td { border-bottom: none; }
+
+  table.sql-table tfoot td {
+    border-top: 1px dashed rgba(255,255,255,0.15);
+    border-bottom: none;
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  .sql-rank-1 { color: #fff; font-weight: 700; }
+
+  /* ----- Expandable "More" cards ----- */
+  .sql-more-card {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .sql-more-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.1rem;
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.82rem;
+  }
+
+  .sql-more-toggle::-webkit-details-marker { display: none; }
+
+  .sql-more-toggle-text {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .sql-more-num {
+    font-weight: bold;
+    opacity: 0.4;
+    font-size: 0.9rem;
+  }
+
+  .sql-more-title {
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+  }
+
+  .sql-more-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    opacity: 0.6;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .sql-more-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .sql-more-icon::before,
+  .sql-more-icon::after {
+    content: "";
+    position: absolute;
+    background: rgba(255,255,255,0.7);
+    transition: transform 0.2s ease;
+  }
+
+  .sql-more-icon::before {
+    top: 50%; left: 4px; right: 4px; height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .sql-more-icon::after {
+    left: 50%; top: 4px; bottom: 4px; width: 1px;
+    transform: translateX(-50%);
+  }
+
+  .sql-more-card[open] .sql-more-icon::after { transform: translateX(-50%) scaleY(0); }
+  .sql-more-card[open] .sql-more-toggle { border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+  .sql-more-desc {
+    padding: 0.85rem 1.1rem 0;
+    font-size: 0.78rem;
+    opacity: 0.65;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sql-more-card .code-block-wrapper {
+    margin: 0.85rem 1.1rem 1.1rem;
+    border-radius: 4px;
+  }
+
+  /* ----- Takeaways ----- */
+  .sql-takeaways {
+    list-style: none;
+    counter-reset: sql-takeaway;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+
+  .sql-takeaways li {
+    counter-increment: sql-takeaway;
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .sql-takeaways li:first-child { border-top: none; }
+
+  .sql-takeaways li::before {
+    content: counter(sql-takeaway, decimal-leading-zero);
+    font-weight: bold;
+    opacity: 0.35;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  /* ----- Notebook embed ----- */
+  .notebook-wrapper {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .notebook-frame {
+    width: 100%;
+    height: 600px;
+    border: none;
+    background: #fff;
+  }
+</style>
+
 						<!-- Contact -->
 							<article id="contact">
 								<h2 class="major">Contact</h2>
@@ -1167,24 +1441,27 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                 unit price, customer rating, and profit margin per row.
             </p>
  
-            <div class="sql-receipt">
-                <div class="sql-receipt-title">walmart</div>
-                <div class="sql-receipt-sub">core columns</div>
-                <hr class="sql-receipt-divider">
-                <div class="sql-field-row"><span class="sql-field-name">branch</span><span class="sql-field-type">varchar</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">city</span><span class="sql-field-type">varchar</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">category</span><span class="sql-field-type">varchar</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">payment_method</span><span class="sql-field-type">varchar</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">quantity</span><span class="sql-field-type">int</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">unit_price</span><span class="sql-field-type">decimal</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">rating</span><span class="sql-field-type">decimal</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">profit_margin</span><span class="sql-field-type">decimal</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">total</span><span class="sql-field-type">decimal</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">date</span><span class="sql-field-type">varchar (dd/mm/yy)</span></div>
-                <div class="sql-field-row"><span class="sql-field-name">time</span><span class="sql-field-type">time</span></div>
-                <hr class="sql-receipt-divider">
-                <div class="sql-field-row"><span class="sql-field-name">~10 branches</span><span class="sql-field-type">multi-city</span></div>
-            </div>
+            <table class="sql-table sql-schema-table">
+    <thead>
+        <tr><th>Column</th><th>Type</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>branch</td><td>varchar</td></tr>
+        <tr><td>city</td><td>varchar</td></tr>
+        <tr><td>category</td><td>varchar</td></tr>
+        <tr><td>payment_method</td><td>varchar</td></tr>
+        <tr><td>quantity</td><td>int</td></tr>
+        <tr><td>unit_price</td><td>decimal</td></tr>
+        <tr><td>rating</td><td>decimal</td></tr>
+        <tr><td>profit_margin</td><td>decimal</td></tr>
+        <tr><td>total</td><td>decimal</td></tr>
+        <tr><td>date</td><td>varchar (dd/mm/yy)</td></tr>
+        <tr><td>time</td><td>time</td></tr>
+    </tbody>
+    <tfoot>
+        <tr><td>~10 branches</td><td>multi-city</td></tr>
+    </tfoot>
+</table>
  
             <!-- ===== Featured Queries ===== -->
             <h5>Business Questions &amp; Queries</h5>
