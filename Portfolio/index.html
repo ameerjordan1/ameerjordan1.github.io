@@ -241,11 +241,24 @@
         </div>
     </div>
 </div>
+</div>
 
-									<!-- Data Analysis Projects (hidden by default) -->
-										<div id="data-analysis" class="project-category" style="display:none;">
-											<h3>Data Analysis Projects</h3>
-											<p>Your Data Analysis project descriptions go here...</p>
+<!-- Data Analysis Projects (hidden by default) -->
+<div id="data-analysis" class="project-category" style="display:none;">
+
+
+<!-- ============ 1. PROJECT CARD ============ -->
+ 
+<div class="project-card" onclick="openModal('walmart-modal')">
+    <div class="project-preview">
+        <div class="project-preview-inner">
+            <span class="project-icon icon solid fa-store"></span>
+            <h4 class="project-title">Walmart Sales Analysis</h4>
+            <p class="project-subtitle">MySQL · Window Functions · CTEs · Jupyter</p>
+            <span class="project-hint">Click to expand</span>
+        </div>
+    </div>
+</div>
 										</div>
 									</article>
 
@@ -1122,6 +1135,399 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     </div>
 </div>
  
+<div id="walmart-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('walmart-modal')"></div>
+    <div class="modal-container">
+ 
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('walmart-modal')">✕</button>
+ 
+        <div class="modal-content">
+            <h4>Walmart Sales Analysis</h4>
+            <p class="modal-description">
+                An exploratory analysis of multi-branch retail transaction data using MySQL —
+                covering payment behavior, category performance, peak shopping windows, and
+                year-over-year revenue trends across branches. SQL was used for data extraction
+                and aggregation; the Jupyter notebook below covers further cleaning, visualization,
+                and summary statistics.
+            </p>
+ 
+            <div class="sql-meta-row">
+                <span class="sql-chip">MySQL</span>
+                <span class="sql-chip">Window Functions</span>
+                <span class="sql-chip">CTEs</span>
+                <span class="sql-chip">Date Functions</span>
+                <span class="sql-chip">Retail Analytics</span>
+            </div>
+ 
+            <!-- ===== Schema ===== -->
+            <h5>Schema</h5>
+            <p>
+                The <code>walmart</code> table holds one row per line-item transaction
+                across multiple branches and cities — category, payment method, quantity,
+                unit price, customer rating, and profit margin per row.
+            </p>
+ 
+            <div class="sql-receipt">
+                <div class="sql-receipt-title">walmart</div>
+                <div class="sql-receipt-sub">core columns</div>
+                <hr class="sql-receipt-divider">
+                <div class="sql-field-row"><span class="sql-field-name">branch</span><span class="sql-field-type">varchar</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">city</span><span class="sql-field-type">varchar</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">category</span><span class="sql-field-type">varchar</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">payment_method</span><span class="sql-field-type">varchar</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">quantity</span><span class="sql-field-type">int</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">unit_price</span><span class="sql-field-type">decimal</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">rating</span><span class="sql-field-type">decimal</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">profit_margin</span><span class="sql-field-type">decimal</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">total</span><span class="sql-field-type">decimal</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">date</span><span class="sql-field-type">varchar (dd/mm/yy)</span></div>
+                <div class="sql-field-row"><span class="sql-field-name">time</span><span class="sql-field-type">time</span></div>
+                <hr class="sql-receipt-divider">
+                <div class="sql-field-row"><span class="sql-field-name">~10 branches</span><span class="sql-field-type">multi-city</span></div>
+            </div>
+ 
+            <!-- ===== Featured Queries ===== -->
+            <h5>Business Questions &amp; Queries</h5>
+            <p>
+                Four queries chosen to show a range of techniques — from simple aggregation
+                to window functions and multi-CTE year-over-year comparisons.
+            </p>
+ 
+            <!-- Query 1 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">01</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Payment method breakdown</div>
+                        <p class="sql-query-desc">
+                            How many transactions and units sold per payment method —
+                            a quick read on which channels customers actually use.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Aggregation</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    payment_method,
+    COUNT(*) AS no_payments,
+    SUM(quantity) AS no_qty_sold
+FROM walmart
+GROUP BY payment_method;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>payment_method</th><th>no_payments</th><th>no_qty_sold</th></tr></thead>
+                        <tbody>
+                            <tr><td>Credit Card</td><td>4,256</td><td>17,890</td></tr>
+                            <tr><td>Ewallet</td><td>3,881</td><td>16,452</td></tr>
+                            <tr><td>Cash</td><td>1,909</td><td>8,114</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 2 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">02</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Top-rated category per branch</div>
+                        <p class="sql-query-desc">
+                            Ranks categories by average rating within each branch, then
+                            keeps only the #1 — surfacing each location's standout department.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Window Fn</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT *
+FROM (
+    SELECT
+        branch,
+        category,
+        AVG(rating) AS avg_rating,
+        RANK() OVER (PARTITION BY branch ORDER BY AVG(rating) DESC) AS `rank`
+    FROM walmart
+    GROUP BY 1, 2
+) AS ranked
+WHERE `rank` = 1;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>branch</th><th>category</th><th>avg_rating</th><th>rank</th></tr></thead>
+                        <tbody>
+                            <tr><td>WALM003</td><td>Health and beauty</td><td>7.8</td><td class="sql-rank-1">1</td></tr>
+                            <tr><td>WALM016</td><td>Sports and travel</td><td>7.6</td><td class="sql-rank-1">1</td></tr>
+                            <tr><td>WALM027</td><td>Electronic accessories</td><td>7.5</td><td class="sql-rank-1">1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 3 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">03</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Busiest day per branch</div>
+                        <p class="sql-query-desc">
+                            Converts the stored date string to a weekday name, counts
+                            transactions per day, and ranks to find each branch's peak day.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Window Fn</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT *
+FROM (
+    SELECT
+        branch,
+        DAYNAME(STR_TO_DATE(date, '%d/%m/%y')) AS day_name,
+        COUNT(*) AS no_transactions,
+        RANK() OVER (PARTITION BY branch ORDER BY COUNT(*) DESC) AS `rank`
+    FROM walmart
+    GROUP BY 1, 2
+) AS ranked
+WHERE `rank` = 1;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>branch</th><th>day_name</th><th>no_transactions</th><th>rank</th></tr></thead>
+                        <tbody>
+                            <tr><td>WALM001</td><td>Saturday</td><td>22</td><td class="sql-rank-1">1</td></tr>
+                            <tr><td>WALM002</td><td>Sunday</td><td>19</td><td class="sql-rank-1">1</td></tr>
+                            <tr><td>WALM003</td><td>Friday</td><td>18</td><td class="sql-rank-1">1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 4 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">04</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Year-over-year revenue decline</div>
+                        <p class="sql-query-desc">
+                            Two CTEs total 2022 and 2023 revenue per branch, then join them
+                            to compute a revenue decrease ratio and surface the 5 branches
+                            that dropped the most.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Multi-CTE</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">WITH revenue_2022 AS (
+    SELECT branch, SUM(total) AS revenue
+    FROM walmart
+    WHERE YEAR(STR_TO_DATE(date, '%d/%m/%y')) = 2022
+    GROUP BY 1
+),
+revenue_2023 AS (
+    SELECT branch, SUM(total) AS revenue
+    FROM walmart
+    WHERE YEAR(STR_TO_DATE(date, '%d/%m/%y')) = 2023
+    GROUP BY 1
+)
+SELECT 
+    ls.branch,
+    ls.revenue AS last_year_revenue,
+    cs.revenue AS cr_year_revenue,
+    ROUND((ls.revenue - cs.revenue) / ls.revenue * 100, 2) AS rdr
+FROM revenue_2022 AS ls
+JOIN revenue_2023 AS cs ON ls.branch = cs.branch
+WHERE ls.revenue > cs.revenue
+ORDER BY 4 DESC
+LIMIT 5;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>branch</th><th>last_year_revenue</th><th>cr_year_revenue</th><th>rdr (%)</th></tr></thead>
+                        <tbody>
+                            <tr><td>WALM018</td><td>$45,210</td><td>$31,870</td><td>29.50</td></tr>
+                            <tr><td>WALM007</td><td>$38,940</td><td>$28,310</td><td>27.30</td></tr>
+                            <tr><td>WALM012</td><td>$41,005</td><td>$30,990</td><td>24.42</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- ===== Additional Queries (expandable) ===== -->
+            <h5>More From The Analysis</h5>
+            <p>The rest of the analysis, condensed. Expand any card to see the query.</p>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">05</span>
+                        <span class="sql-more-title">Quantity sold by payment method</span>
+                    </span>
+                    <span class="sql-more-tag">Aggregation</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A simpler cut of the payment-method breakdown — total units moved
+                    per payment type, without the transaction count.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    payment_method,
+    SUM(quantity) AS no_qty_sold
+FROM walmart
+GROUP BY payment_method;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">06</span>
+                        <span class="sql-more-title">Rating spread by city and category</span>
+                    </span>
+                    <span class="sql-more-tag">Aggregation</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Minimum, maximum, and average rating for every city/category
+                    combination — useful for spotting categories with inconsistent
+                    customer experience.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    city,
+    category,
+    MIN(rating) AS min_rating,
+    MAX(rating) AS max_rating,
+    AVG(rating) AS avg_rating
+FROM walmart
+GROUP BY 1, 2;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">07</span>
+                        <span class="sql-more-title">Profit by category</span>
+                    </span>
+                    <span class="sql-more-tag">Derived Metric</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Calculates total profit per category as revenue × profit margin,
+                    ranked from most to least profitable — a quick view of which
+                    departments actually drive margin, not just revenue.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    category, 
+    SUM(total) AS total_revenue,
+    SUM(total * profit_margin) AS profit
+FROM walmart
+GROUP BY 1
+ORDER BY profit DESC;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">08</span>
+                        <span class="sql-more-title">Preferred payment method per branch</span>
+                    </span>
+                    <span class="sql-more-tag">CTE + Window Fn</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A variant of the top-category query — ranks payment methods by
+                    transaction count within each branch and keeps the most-used one.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">WITH cte AS (
+    SELECT 
+        branch,
+        payment_method,
+        COUNT(*) AS total_trans,
+        RANK() OVER (PARTITION BY branch ORDER BY COUNT(*) DESC) AS `rank`
+    FROM walmart
+    GROUP BY 1, 2
+)
+SELECT * 
+FROM cte
+WHERE `rank` = 1;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">09</span>
+                        <span class="sql-more-title">Invoices by shift (morning/afternoon/evening)</span>
+                    </span>
+                    <span class="sql-more-tag">Conditional Logic</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Buckets each transaction into a shift using a CASE expression based
+                    on the hour of sale, then counts invoices per branch and shift —
+                    a quick read on when each location is busiest during the day.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT
+    branch,
+    CASE
+        WHEN HOUR(time) < 12 THEN 'MORNING'
+        WHEN HOUR(time) BETWEEN 12 AND 17 THEN 'AFTERNOON'
+        ELSE 'EVENING'
+    END AS shift,
+    COUNT(*) AS num_invoices
+FROM walmart
+GROUP BY branch, shift
+ORDER BY branch, num_invoices DESC;</code></pre>
+                </div>
+            </details>
+ 
+            <!-- ===== Findings ===== -->
+            <h5>Key Takeaways</h5>
+            <ul class="sql-takeaways">
+                <li>
+                    Credit card and e-wallet payments together account for the large
+                    majority of transactions and units sold — cash is a minority channel
+                    and could shape staffing or terminal allocation decisions.
+                </li>
+                <li>
+                    Top-rated categories vary meaningfully by branch, suggesting
+                    location-specific merchandising or local demand differences rather
+                    than a single chain-wide "best" category.
+                </li>
+                <li>
+                    Several branches showed double-digit revenue declines from 2022 to
+                    2023, flagged via a simple two-CTE join — a pattern worth
+                    investigating further at the branch-operations level.
+                </li>
+            </ul>
+ 
+            <!-- ===== Notebook ===== -->
+            <h5>Notebook</h5>
+            <p>
+                Further cleaning, visualization, and summary statistics for this dataset,
+                worked through in Jupyter.
+            </p>
+            <div class="notebook-wrapper">
+                <iframe
+                    src="Walmart Sales Analysis.html"
+                    class="notebook-frame"
+                    title="Walmart Sales Analysis Notebook">
+                </iframe>
+            </div>
+ 
+        </div>
+    </div>
+</div>
  
 		<!-- BG -->
 			<div id="bg"></div>
