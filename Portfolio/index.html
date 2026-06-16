@@ -1818,7 +1818,7 @@ ORDER BY branch, num_invoices DESC;</code></pre>
         </div>
     </div>
 </div>
- <!-- ============ NETFLIX MODAL ============ -->
+<!-- ============ NETFLIX MODAL ============ -->
 <div id="netflix-modal" class="project-modal">
     <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('netflix-modal')"></div>
     <div class="modal-container">
@@ -1952,7 +1952,7 @@ LIMIT 5;</code></pre>
                             <tr><td>India</td><td>1,045</td></tr>
                             <tr><td>United Kingdom</td><td>804</td></tr>
                             <tr><td>Canada</td><td>441</td></tr>
-                            <tr><td>France</td><td>391</td></tr>
+                            <tr><td>France</td><td>389</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -2045,6 +2045,26 @@ LIMIT 5;</code></pre>
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
                         <span class="sql-more-num">05</span>
+                        <span class="sql-more-title">Movies released in a specific year (2020)</span>
+                    </span>
+                    <span class="sql-more-tag">Filter</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A straightforward filter combining content type and release year — the
+                    template for pulling any single year's movie slate.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix
+WHERE type = 'movie'
+AND release_year = 2020;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">06</span>
                         <span class="sql-more-title">Longest movie</span>
                     </span>
                     <span class="sql-more-tag">Subquery</span>
@@ -2064,7 +2084,7 @@ AND duration = (SELECT MAX(duration) FROM netflix);</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">06</span>
+                        <span class="sql-more-num">07</span>
                         <span class="sql-more-title">Content added in the last 5 years</span>
                     </span>
                     <span class="sql-more-tag">Date Functions</span>
@@ -2086,7 +2106,7 @@ WHERE STR_TO_DATE(date_added, '%M %d, %Y') >= CURRENT_DATE - INTERVAL 5 YEAR;</c
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">07</span>
+                        <span class="sql-more-num">08</span>
                         <span class="sql-more-title">Content by director "Rajiv Chilaka"</span>
                     </span>
                     <span class="sql-more-tag">Filter</span>
@@ -2105,7 +2125,7 @@ WHERE director LIKE '%Rajiv Chilaka%';</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">08</span>
+                        <span class="sql-more-num">09</span>
                         <span class="sql-more-title">TV shows with more than 5 seasons</span>
                     </span>
                     <span class="sql-more-tag">String Parsing</span>
@@ -2128,7 +2148,7 @@ AND CAST(SUBSTRING_INDEX(duration, ' ', 1) AS UNSIGNED) > 5;</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">09</span>
+                        <span class="sql-more-num">10</span>
                         <span class="sql-more-title">Content count by genre</span>
                     </span>
                     <span class="sql-more-tag">String Parsing</span>
@@ -2155,7 +2175,7 @@ ORDER BY total_content DESC;</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">10</span>
+                        <span class="sql-more-num">11</span>
                         <span class="sql-more-title">All documentary movies</span>
                     </span>
                     <span class="sql-more-tag">Filter</span>
@@ -2173,7 +2193,7 @@ WHERE listed_in LIKE '%documentaries%';</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">11</span>
+                        <span class="sql-more-num">12</span>
                         <span class="sql-more-title">Content missing a director</span>
                     </span>
                     <span class="sql-more-tag">Data Quality</span>
@@ -2192,7 +2212,7 @@ WHERE director = '';</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">12</span>
+                        <span class="sql-more-num">13</span>
                         <span class="sql-more-title">Salman Khan movies in the last 10 years</span>
                     </span>
                     <span class="sql-more-tag">Date Functions</span>
@@ -2212,7 +2232,7 @@ AND release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">13</span>
+                        <span class="sql-more-num">14</span>
                         <span class="sql-more-title">Top 10 actors in U.S.-produced content</span>
                     </span>
                     <span class="sql-more-tag">String Parsing</span>
@@ -2242,7 +2262,7 @@ LIMIT 10;</code></pre>
             <details class="sql-more-card">
                 <summary class="sql-more-toggle">
                     <span class="sql-more-toggle-text">
-                        <span class="sql-more-num">14</span>
+                        <span class="sql-more-num">15</span>
                         <span class="sql-more-title">"Good" vs. "Bad" content by keyword</span>
                     </span>
                     <span class="sql-more-tag">CTE + CASE</span>
