@@ -2295,25 +2295,25 @@ GROUP BY 1;</code></pre>
             <ul class="sql-takeaways">
                 <li>
                     Movies outnumber TV shows by more than 2-to-1 (6,131 vs. 2,676), and
-                    <strong>TV-MA</strong> is the single most common rating for both content
+                    TV-MA is the single most common rating for both content
                     types — suggesting Netflix's catalog skews toward mature audiences across
                     the board, not just in one format.
                 </li>
                 <li>
                     Content is heavily concentrated by country of origin: the
-                    <strong>United States</strong> alone accounts for roughly 3,683 titles —
+                    United States alone accounts for roughly 3,683 titles —
                     more than triple the next closest country (India, ~1,045) — even after
                     splitting multi-country co-productions so each contributing country is
                     counted separately.
                 </li>
                 <li>
-                    India's content additions were extremely front-loaded: <strong>2018</strong>
+                    India's content additions were extremely front-loaded: 2018
                     alone represents about 34% of every Indian title ever added to the platform,
                     with a steady decline in following years — a pattern worth investigating
                     against Netflix's regional licensing strategy over time.
                 </li>
                 <li>
-                    Several core fields (<code>country</code>, <code>cast</code>, <code>listed_in</code>)
+                    Several core fields (country, cast, listed_in)
                     store multiple values as comma-separated text rather than a normalized
                     structure, which meant most "count by X" questions in this project required
                     first splitting those fields into individual rows with a numbers-table join
