@@ -1805,7 +1805,492 @@ ORDER BY branch, num_invoices DESC;</code></pre>
         </div>
     </div>
 </div>
+ <!-- ============ NETFLIX MODAL ============ -->
+<div id="netflix-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('netflix-modal')"></div>
+    <div class="modal-container">
  
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('netflix-modal')">✕</button>
+ 
+        <div class="modal-content">
+            <h4>Netflix Content Analysis</h4>
+            <p class="modal-description">
+                An exploratory analysis of Netflix's global content catalog (8,807 titles) using
+                MySQL — covering content-type distribution, ratings, genre and country breakdowns,
+                cast/director lookups, and content-categorization by description keywords. The
+                dataset stores several fields (country, cast, listed_in) as comma-separated lists
+                within a single column, so a recurring theme of this project is splitting those
+                lists out using string functions so each value can be counted individually.
+            </p>
+ 
+            <div class="sql-meta-row">
+                <span class="sql-chip">MySQL</span>
+                <span class="sql-chip">CTEs</span>
+                <span class="sql-chip">Window Functions</span>
+                <span class="sql-chip">String Parsing</span>
+                <span class="sql-chip">Date Functions</span>
+            </div>
+ 
+            <!-- ===== Schema ===== -->
+            <h5>Schema</h5>
+            <p>
+                The <code>netflix</code> table holds one row per title (movie or TV show) with
+                metadata describing its cast, country of origin, genre, and release details.
+                Several columns — <code>country</code>, <code>cast</code>, and <code>listed_in</code>
+                — store multiple comma-separated values per row.
+            </p>
+ 
+            <table class="sql-table sql-schema-table">
+    <thead>
+        <tr><th>Column</th><th>Type</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>show_id</td><td>varchar</td></tr>
+        <tr><td>type</td><td>varchar (Movie / TV Show)</td></tr>
+        <tr><td>title</td><td>varchar</td></tr>
+        <tr><td>director</td><td>varchar</td></tr>
+        <tr><td>cast</td><td>text (comma-separated)</td></tr>
+        <tr><td>country</td><td>varchar (comma-separated)</td></tr>
+        <tr><td>date_added</td><td>varchar ("Month DD, YYYY")</td></tr>
+        <tr><td>release_year</td><td>varchar</td></tr>
+        <tr><td>rating</td><td>varchar</td></tr>
+        <tr><td>duration</td><td>varchar ("X min" / "X Season(s)")</td></tr>
+        <tr><td>listed_in</td><td>varchar (comma-separated genres)</td></tr>
+        <tr><td>description</td><td>text</td></tr>
+    </tbody>
+    <tfoot>
+        <tr><td>8,807 titles</td><td>movies &amp; TV shows</td></tr>
+    </tfoot>
+</table>
+ 
+            <!-- ===== Featured Queries ===== -->
+            <h5>Business Questions &amp; Queries</h5>
+            <p>
+                Four queries chosen to show a range of techniques — from simple aggregation to
+                window-function ranking and parsing delimited string fields into individual rows.
+            </p>
+ 
+            <!-- Query 1 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">01</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Movies vs. TV shows</div>
+                        <p class="sql-query-desc">
+                            A baseline count of how the catalog splits between the two content
+                            types.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Aggregation</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT
+    type,
+    COUNT(*) AS total_content
+FROM netflix
+GROUP BY type;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Results</div>
+                    <table class="sql-table">
+                        <thead><tr><th>type</th><th>total_content</th></tr></thead>
+                        <tbody>
+                            <tr><td>Movie</td><td>6,131</td></tr>
+                            <tr><td>TV Show</td><td>2,676</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 2 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">02</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Top 5 countries by content volume</div>
+                        <p class="sql-query-desc">
+                            The <code>country</code> column often lists multiple co-production
+                            countries per title (e.g. "United States, Canada"). A numbers-CTE join
+                            splits each row into one entry per country before counting, so a title
+                            credited to three countries is counted once for each.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">String Parsing</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(country, ',', n.n), ',', -1)) AS country,
+    COUNT(*) AS total_content
+FROM netflix
+JOIN (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5) n
+    ON CHAR_LENGTH(country) - CHAR_LENGTH(REPLACE(country, ',', '')) >= n.n - 1
+WHERE country IS NOT NULL AND country != ''
+GROUP BY TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(country, ',', n.n), ',', -1))
+HAVING country != ''
+ORDER BY total_content DESC
+LIMIT 5;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Results</div>
+                    <table class="sql-table">
+                        <thead><tr><th>country</th><th>total_content</th></tr></thead>
+                        <tbody>
+                            <tr><td>United States</td><td>3,683</td></tr>
+                            <tr><td>India</td><td>1,045</td></tr>
+                            <tr><td>United Kingdom</td><td>804</td></tr>
+                            <tr><td>Canada</td><td>441</td></tr>
+                            <tr><td>France</td><td>391</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 3 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">03</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Most common rating per content type</div>
+                        <p class="sql-query-desc">
+                            A CTE counts titles by type and rating, then <code>RANK()</code>
+                            partitioned by type surfaces the single most frequent rating for
+                            movies and for TV shows separately.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Window Fn</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">WITH rating_counts AS (
+    SELECT 
+        type,
+        rating,
+        COUNT(*) AS count,
+        RANK() OVER (PARTITION BY type ORDER BY COUNT(*) DESC) AS ranking
+    FROM netflix
+    GROUP BY type, rating
+)
+SELECT type, rating, count
+FROM rating_counts
+WHERE ranking = 1;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Results</div>
+                    <table class="sql-table">
+                        <thead><tr><th>type</th><th>rating</th><th>count</th></tr></thead>
+                        <tbody>
+                            <tr><td>Movie</td><td>TV-MA</td><td>2,062</td></tr>
+                            <tr><td>TV Show</td><td>TV-MA</td><td>1,145</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 4 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">04</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">India's content additions by year</div>
+                        <p class="sql-query-desc">
+                            Converts the stored date string to a real date, extracts the year,
+                            and computes each year's share of all Indian content ever added —
+                            ranked to find the years with the heaviest investment.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Date Functions</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    YEAR(STR_TO_DATE(date_added, '%M %d, %Y')) AS year,
+    COUNT(*) AS total_content,
+    ROUND(COUNT(*) / (SELECT COUNT(*) FROM netflix WHERE country = 'India') * 100, 2) 
+        AS avg_content_per_year
+FROM netflix
+WHERE country = 'India'
+GROUP BY year
+ORDER BY avg_content_per_year DESC
+LIMIT 5;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Sample Results</div>
+                    <table class="sql-table">
+                        <thead><tr><th>year</th><th>total_content</th><th>avg_content_per_year (%)</th></tr></thead>
+                        <tbody>
+                            <tr><td>2018</td><td>333</td><td>34.26</td></tr>
+                            <tr><td>2019</td><td>203</td><td>20.88</td></tr>
+                            <tr><td>2020</td><td>189</td><td>19.44</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- ===== Additional Queries (expandable) ===== -->
+            <h5>More From The Analysis</h5>
+            <p>The rest of the analysis, condensed. Expand any card to see the query.</p>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">05</span>
+                        <span class="sql-more-title">Longest movie</span>
+                    </span>
+                    <span class="sql-more-tag">Subquery</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Finds the movie(s) whose duration matches the maximum duration across
+                    the entire catalog.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix
+WHERE type = 'Movie'
+AND duration = (SELECT MAX(duration) FROM netflix);</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">06</span>
+                        <span class="sql-more-title">Content added in the last 5 years</span>
+                    </span>
+                    <span class="sql-more-tag">Date Functions</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    <code>date_added</code> is stored as text ("January 1, 2021"), so
+                    <code>STR_TO_DATE</code> parses it into a real date before filtering against
+                    a rolling 5-year window.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT *,
+    STR_TO_DATE(date_added, '%M %d, %Y') AS date_added_converted
+FROM netflix
+WHERE STR_TO_DATE(date_added, '%M %d, %Y') >= CURRENT_DATE - INTERVAL 5 YEAR;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">07</span>
+                        <span class="sql-more-title">Content by director "Rajiv Chilaka"</span>
+                    </span>
+                    <span class="sql-more-tag">Filter</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A simple pattern-match lookup against the <code>director</code> field —
+                    useful as a template for any director or studio name search.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix 
+WHERE director LIKE '%Rajiv Chilaka%';</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">08</span>
+                        <span class="sql-more-title">TV shows with more than 5 seasons</span>
+                    </span>
+                    <span class="sql-more-tag">String Parsing</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    <code>duration</code> for TV shows is stored as text like "3 Seasons", so the
+                    numeric portion is extracted with <code>SUBSTRING_INDEX</code> and cast to an
+                    integer before filtering.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT *,
+    CAST(SUBSTRING_INDEX(duration, ' ', 1) AS UNSIGNED) AS seasons
+FROM netflix
+WHERE type = 'TV Show'
+AND CAST(SUBSTRING_INDEX(duration, ' ', 1) AS UNSIGNED) > 5;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">09</span>
+                        <span class="sql-more-title">Content count by genre</span>
+                    </span>
+                    <span class="sql-more-tag">String Parsing</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Same comma-splitting technique as the country breakdown, applied to the
+                    <code>listed_in</code> genre field — most titles carry 2–3 genre tags, so
+                    they're counted under each one.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(listed_in, ',', n.n), ',', -1)) AS genre,
+    COUNT(*) AS total_content
+FROM netflix
+JOIN (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5) n
+    ON CHAR_LENGTH(listed_in) - CHAR_LENGTH(REPLACE(listed_in, ',', '')) >= n.n - 1
+WHERE listed_in IS NOT NULL AND listed_in != ''
+GROUP BY TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(listed_in, ',', n.n), ',', -1))
+ORDER BY total_content DESC;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">10</span>
+                        <span class="sql-more-title">All documentary movies</span>
+                    </span>
+                    <span class="sql-more-tag">Filter</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Filters the genre field for any title tagged as a documentary.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix
+WHERE listed_in LIKE '%documentaries%';</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">11</span>
+                        <span class="sql-more-title">Content missing a director</span>
+                    </span>
+                    <span class="sql-more-tag">Data Quality</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A data-quality check — flags rows where <code>director</code> was never
+                    populated, useful for understanding gaps in the source dataset.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix
+WHERE director = '';</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">12</span>
+                        <span class="sql-more-title">Salman Khan movies in the last 10 years</span>
+                    </span>
+                    <span class="sql-more-tag">Date Functions</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    Combines a cast-field pattern match with a rolling release-year window to
+                    answer an actor-specific recency question.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT * FROM netflix
+WHERE cast LIKE '%Salman Khan%'
+AND release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">13</span>
+                        <span class="sql-more-title">Top 10 actors in U.S.-produced content</span>
+                    </span>
+                    <span class="sql-more-tag">String Parsing</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    The most involved query in the project — splits the <code>cast</code> field
+                    (up to 10 comma-separated names) into individual actors, restricted to
+                    U.S.-produced titles, then ranks by appearance count.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(cast, ',', n.n), ',', -1)) AS actor,
+    COUNT(*) AS total_content
+FROM netflix
+JOIN (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5
+      UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10) n
+    ON CHAR_LENGTH(cast) - CHAR_LENGTH(REPLACE(cast, ',', '')) >= n.n - 1
+WHERE country LIKE '%United States%'
+AND cast IS NOT NULL AND cast != ''
+GROUP BY TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(cast, ',', n.n), ',', -1))
+ORDER BY total_content DESC
+LIMIT 10;</code></pre>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">14</span>
+                        <span class="sql-more-title">"Good" vs. "Bad" content by keyword</span>
+                    </span>
+                    <span class="sql-more-tag">CTE + CASE</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A CTE tags every title as <em>Bad</em> if its description contains "kill" or
+                    "violence", otherwise <em>Good</em>, then counts titles in each bucket — a
+                    lightweight content-sensitivity flag based purely on description text.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">WITH new_table AS (
+    SELECT *,
+        CASE
+            WHEN description LIKE '%kill%' OR description LIKE '%violence%' THEN 'Bad'
+            ELSE 'Good'
+        END AS category
+    FROM netflix
+)
+SELECT
+    category,
+    COUNT(*) AS total_content
+FROM new_table
+GROUP BY 1;</code></pre>
+                </div>
+            </details>
+ 
+            <!-- ===== Findings ===== -->
+            <h5>Key Takeaways</h5>
+            <ul class="sql-takeaways">
+                <li>
+                    Movies outnumber TV shows by more than 2-to-1 (6,131 vs. 2,676), and
+                    <strong>TV-MA</strong> is the single most common rating for both content
+                    types — suggesting Netflix's catalog skews toward mature audiences across
+                    the board, not just in one format.
+                </li>
+                <li>
+                    Content is heavily concentrated by country of origin: the
+                    <strong>United States</strong> alone accounts for roughly 3,683 titles —
+                    more than triple the next closest country (India, ~1,045) — even after
+                    splitting multi-country co-productions so each contributing country is
+                    counted separately.
+                </li>
+                <li>
+                    India's content additions were extremely front-loaded: <strong>2018</strong>
+                    alone represents about 34% of every Indian title ever added to the platform,
+                    with a steady decline in following years — a pattern worth investigating
+                    against Netflix's regional licensing strategy over time.
+                </li>
+                <li>
+                    Several core fields (<code>country</code>, <code>cast</code>, <code>listed_in</code>)
+                    store multiple values as comma-separated text rather than a normalized
+                    structure, which meant most "count by X" questions in this project required
+                    first splitting those fields into individual rows with a numbers-table join
+                    before any aggregation could happen.
+                </li>
+            </ul>
+ 
+        </div>
+    </div>
+</div>
 		<!-- BG -->
 			<div id="bg"></div>
 
