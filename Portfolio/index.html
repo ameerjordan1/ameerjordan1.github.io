@@ -279,8 +279,8 @@
     <div class="project-preview">
         <div class="project-preview-inner">
             <span class="project-icon icon solid fa-heartbeat"></span>
-            <h4 class="project-title">Hospital Admission Data Analysis</h4>
-            <p class="project-subtitle">MySQL · Data Cleaning · Window Functions · CTEs</p>
+            <h4 class="project-title">Hospital Admission Analysis</h4>
+            <p class="project-subtitle">MySQL · Cleaning · Window Functions · CTEs</p>
             <span class="project-hint">Click to expand</span>
         </div>
     </div>
@@ -2698,7 +2698,7 @@ ORDER BY 2 DESC;</code></pre>
                 <li>
                     About 7.7% of all admission records (1,217 of 15,757) were exact
                     duplicates — same patient, same admission date, same discharge date — caught
-                    with a <code>ROW_NUMBER()</code> window function before any metric was
+                    with a ROW_NUMBER() window function before any metric was
                     calculated. Left in, they would have inflated every count and quietly skewed
                     every average in this analysis.
                 </li>
@@ -2713,14 +2713,7 @@ ORDER BY 2 DESC;</code></pre>
                     non-urgent discharges when outpatient follow-up and staffing are reduced over
                     the weekend.
                 </li>
-                <li>
-                    The raw export used three different inconsistent placeholders for missing
-                    lab values (<code>"NULL"</code>, <code>"EMPTY"</code>, and a typo
-                    <code>"NILL"</code>) and silently mixed two date formats in the same column —
-                    a reminder that real-world hospital exports rarely arrive clean enough to load
-                    as-is, and that cleaning logic needs to be verified against an independent
-                    column (here, <code>duration_of_stay</code>) rather than assumed.
-                </li>
+                
             </ul>
  
         </div>
