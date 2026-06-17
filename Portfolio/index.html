@@ -2352,10 +2352,7 @@ GROUP BY 1;</code></pre>
                 An end-to-end MySQL project on 15,757 cardiac admission records from Hero DMC
                 Heart Institute — starting from a raw CSV export riddled with encoding and
                 formatting issues, through a SQL deduplication layer, to a set of discharge and
-                length-of-stay metrics. Unlike a typical "clean CSV, write queries" project, the
-                cleaning step here was the hard part: three different inconsistent missing-value
-                markers, two conflicting date formats mixed throughout the same columns, and a
-                MySQL import quirk that silently dropped a row without raising an error.
+                length-of-stay metrics. 
             </p>
  
             <div class="sql-meta-row">
@@ -2399,32 +2396,10 @@ GROUP BY 1;</code></pre>
  
             <!-- ===== Data Cleaning ===== -->
             <h5>Data Cleaning</h5>
+          
+        
             <p>
-                The source file failed to import before a single query could run. It opened with
-                a UTF-8 byte-order-mark that crashed MySQL Workbench's import wizard outright, and
-                once that was stripped, three more issues surfaced: missing lab values were
-                recorded inconsistently as the text <code>"NULL"</code>, the text
-                <code>"EMPTY"</code>, and — on exactly one row — a typo, <code>"NILL"</code>,
-                none of which MySQL treats as an actual NULL on its own. The admission and
-                discharge date columns mixed two formats throughout the same column (some rows
-                <code>M/D/YY</code>, others <code>D/M/YYYY</code>), which had to be detected and
-                normalized programmatically — confirmed by cross-checking the reconstructed dates
-                against the independently recorded <code>duration_of_stay</code> column rather
-                than just guessing at a date order. One row's discharge date was unrecoverable and
-                was set to NULL rather than fabricated.
-            </p>
-            <p>
-                Even after cleaning, the import itself dropped one row silently: MySQL's
-                <code>LOAD DATA LOCAL INFILE</code> downgrades row-level errors to warnings rather
-                than aborting (since it can't pause a client-side file stream mid-transfer), so a
-                constraint violation just vanishes a row instead of throwing a visible error. Since
-                <code>sno</code> is a clean sequential primary key, the missing row was located with
-                a sum-of-sequence check — comparing the expected total of 1..15,757 against the
-                actual sum in the table to solve for the exact missing value — rather than scanning
-                15,000+ rows by hand.
-            </p>
-            <p>
-                With the raw table finally loaded, a window function handled the last problem:
+                A window function handled the problem:
                 exact-duplicate admission records (same patient, same admission date, same
                 discharge date — not legitimate readmissions, which differ by date) needed to be
                 collapsed before any metric could be trusted.
