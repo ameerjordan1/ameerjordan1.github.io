@@ -272,6 +272,20 @@
         </div>
     </div>
 </div>
+
+<!-- ============ 3. PROJECT CARD ============ -->
+
+<div class="project-card" onclick="openModal('hospital-modal')">
+    <div class="project-preview">
+        <div class="project-preview-inner">
+            <span class="project-icon icon solid fa-heartbeat"></span>
+            <h4 class="project-title">Hospital Admission Data Analysis</h4>
+            <p class="project-subtitle">MySQL · Data Cleaning · Window Functions · CTEs</p>
+            <span class="project-hint">Click to expand</span>
+        </div>
+    </div>
+</div>
+										
 										</div>
 									</article>
 
@@ -2318,6 +2332,394 @@ GROUP BY 1;</code></pre>
                     structure, which meant most "count by X" questions in this project required
                     first splitting those fields into individual rows with a numbers-table join
                     before any aggregation could happen.
+                </li>
+            </ul>
+ 
+        </div>
+    </div>
+</div>
+
+<!-- ============ HOSPITAL ADMISSION MODAL ============ -->
+<div id="hospital-modal" class="project-modal">
+    <div class="modal-overlay" onclick="event.stopPropagation(); closeModal('hospital-modal')"></div>
+    <div class="modal-container">
+ 
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal('hospital-modal')">✕</button>
+ 
+        <div class="modal-content">
+            <h4>Hospital Admission Data Analysis</h4>
+            <p class="modal-description">
+                An end-to-end MySQL project on 15,757 cardiac admission records from Hero DMC
+                Heart Institute — starting from a raw CSV export riddled with encoding and
+                formatting issues, through a SQL deduplication layer, to a set of discharge and
+                length-of-stay metrics. Unlike a typical "clean CSV, write queries" project, the
+                cleaning step here was the hard part: three different inconsistent missing-value
+                markers, two conflicting date formats mixed throughout the same columns, and a
+                MySQL import quirk that silently dropped a row without raising an error.
+            </p>
+ 
+            <div class="sql-meta-row">
+                <span class="sql-chip">MySQL</span>
+                <span class="sql-chip">Data Cleaning</span>
+                <span class="sql-chip">Window Functions</span>
+                <span class="sql-chip">CTEs</span>
+                <span class="sql-chip">Conditional Aggregation</span>
+            </div>
+ 
+            <!-- ===== Schema ===== -->
+            <h5>Schema</h5>
+            <p>
+                The <code>hdhi_admission_data</code> table holds one row per admission record —
+                demographics, admission/discharge dates, length of stay, lab values on
+                arrival, and roughly 28 binary flags marking comorbidities and diagnoses
+                (smoking, diabetes, heart failure, CVA, AKI, and similar).
+            </p>
+ 
+            <table class="sql-table sql-schema-table">
+    <thead>
+        <tr><th>Column</th><th>Type</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>sno</td><td>int unsigned (primary key)</td></tr>
+        <tr><td>mrd_no</td><td>int unsigned, nullable</td></tr>
+        <tr><td>doa / dod</td><td>date (admission / discharge)</td></tr>
+        <tr><td>age</td><td>tinyint unsigned</td></tr>
+        <tr><td>gender / rural</td><td>char(1)</td></tr>
+        <tr><td>admission_type</td><td>char(1) (Emergency / OPD)</td></tr>
+        <tr><td>duration_of_stay</td><td>smallint unsigned</td></tr>
+        <tr><td>icu_stay_duration</td><td>smallint unsigned</td></tr>
+        <tr><td>outcome</td><td>varchar(20) (Discharge / Expiry / DAMA)</td></tr>
+        <tr><td>hb, tlc, platelets, glucose, urea, creatinine, bnp, ef</td><td>decimal, nullable (lab values)</td></tr>
+        <tr><td>smoking, alcohol, dm, htn, cad, heart_failure, cva_infract, ...</td><td>tinyint(1) — 28 comorbidity/diagnosis flags</td></tr>
+    </tbody>
+    <tfoot>
+        <tr><td>15,757 admissions</td><td>56 columns total</td></tr>
+    </tfoot>
+</table>
+ 
+            <!-- ===== Data Cleaning ===== -->
+            <h5>Data Cleaning</h5>
+            <p>
+                The source file failed to import before a single query could run. It opened with
+                a UTF-8 byte-order-mark that crashed MySQL Workbench's import wizard outright, and
+                once that was stripped, three more issues surfaced: missing lab values were
+                recorded inconsistently as the text <code>"NULL"</code>, the text
+                <code>"EMPTY"</code>, and — on exactly one row — a typo, <code>"NILL"</code>,
+                none of which MySQL treats as an actual NULL on its own. The admission and
+                discharge date columns mixed two formats throughout the same column (some rows
+                <code>M/D/YY</code>, others <code>D/M/YYYY</code>), which had to be detected and
+                normalized programmatically — confirmed by cross-checking the reconstructed dates
+                against the independently recorded <code>duration_of_stay</code> column rather
+                than just guessing at a date order. One row's discharge date was unrecoverable and
+                was set to NULL rather than fabricated.
+            </p>
+            <p>
+                Even after cleaning, the import itself dropped one row silently: MySQL's
+                <code>LOAD DATA LOCAL INFILE</code> downgrades row-level errors to warnings rather
+                than aborting (since it can't pause a client-side file stream mid-transfer), so a
+                constraint violation just vanishes a row instead of throwing a visible error. Since
+                <code>sno</code> is a clean sequential primary key, the missing row was located with
+                a sum-of-sequence check — comparing the expected total of 1..15,757 against the
+                actual sum in the table to solve for the exact missing value — rather than scanning
+                15,000+ rows by hand.
+            </p>
+            <p>
+                With the raw table finally loaded, a window function handled the last problem:
+                exact-duplicate admission records (same patient, same admission date, same
+                discharge date — not legitimate readmissions, which differ by date) needed to be
+                collapsed before any metric could be trusted.
+            </p>
+ 
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">—</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Deduplicated view (vw_admissiondata)</div>
+                        <p class="sql-query-desc">
+                            <code>ROW_NUMBER()</code> partitioned on patient + admission + discharge
+                            date flags exact duplicates as anything after the first occurrence;
+                            every query below runs against this view rather than the raw table.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Window Fn</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">CREATE OR REPLACE VIEW vw_AdmissionData AS
+WITH CleanData AS (
+    SELECT *,
+    ROW_NUMBER() OVER(PARTITION BY mrd_no, doa, dod ORDER BY mrd_no) AS Dup_NO
+    FROM hdhi_admission_data
+)
+SELECT *
+FROM CleanData
+WHERE Dup_NO = 1 AND mrd_no IS NOT NULL;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>raw rows</th><th>duplicate groups</th><th>rows removed</th><th>clean rows</th></tr></thead>
+                        <tbody>
+                            <tr><td>15,757</td><td>1,194</td><td>1,217</td><td>14,540</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- ===== Featured Queries ===== -->
+            <h5>Business Questions &amp; Queries</h5>
+            <p>
+                All numbers below are drawn from the deduplicated view — the duplicate rows
+                removed above would have inflated every count and skewed every average had they
+                been left in.
+            </p>
+ 
+            <!-- Query 1 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">01</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Total discharges</div>
+                        <p class="sql-query-desc">
+                            A baseline count of admissions that ended in a standard discharge,
+                            as opposed to in-hospital death (Expiry) or discharge against medical
+                            advice (DAMA).
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Aggregation</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    COUNT(*) AS Total_Discharges
+FROM vw_admissiondata
+WHERE OUTCOME = 'DISCHARGE';</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>Total_Discharges</th></tr></thead>
+                        <tbody>
+                            <tr><td>12,608</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 2 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">02</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Average daily discharge rate</div>
+                        <p class="sql-query-desc">
+                            Discharges as a share of total patient-bed-days consumed across the
+                            dataset. The first draft of this used two correlated subqueries
+                            (visible in the project's SQL file); this version reaches the same
+                            result in a single pass with conditional aggregation instead.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Conditional Agg.</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    ROUND(SUM(CASE WHEN 
+        outcome = 'DISCHARGE' 
+            THEN 1.0 
+                ELSE 0.0 
+    END)/ SUM(duration_of_stay), 2) * 100 AS Avg_Daily_Discharge_Rate
+FROM vw_admissiondata;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>Avg_Daily_Discharge_Rate</th></tr></thead>
+                        <tbody>
+                            <tr><td>14.00</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 3 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">03</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Average length of stay (ALOS)</div>
+                        <p class="sql-query-desc">
+                            The standard healthcare throughput metric — total bed-days divided by
+                            total discharges. The reverse ratio of Query 02 above.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Healthcare KPI</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    ROUND(SUM(duration_of_stay)
+    /
+    SUM(CASE WHEN outcome = 'DISCHARGE' THEN 1.0 ELSE 0.0 END), 0) AS Avg_Length_Of_Stay
+FROM vw_admissiondata;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>Avg_Length_Of_Stay (days)</th></tr></thead>
+                        <tbody>
+                            <tr><td>7</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- Query 4 -->
+            <div class="sql-query-card">
+                <div class="sql-query-head">
+                    <div class="sql-query-num">04</div>
+                    <div class="sql-query-head-text">
+                        <div class="sql-query-title">Discharges by age group</div>
+                        <p class="sql-query-desc">
+                            Buckets patients into Pediatric (&lt;16), Adult (16–64), and Senior
+                            Citizen (65+) using a repeated CASE expression in both the SELECT and
+                            GROUP BY.
+                        </p>
+                    </div>
+                    <div class="sql-stamp">Conditional Logic</div>
+                </div>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    CASE 
+        WHEN age < 16 THEN 'Pediatric'
+        WHEN age < 65 THEN 'Adult'
+        WHEN age >= 65 THEN 'Senior Citizen'
+        ELSE 'Unknown'
+    END AS age_group,
+    COUNT(*) AS Age_Distribution
+FROM vw_admissiondata
+WHERE outcome = 'Discharge'
+GROUP BY CASE 
+        WHEN age < 16 THEN 'Pediatric'
+        WHEN age < 65 THEN 'Adult'
+        WHEN age >= 65 THEN 'Senior Citizen'
+        ELSE 'Unknown'
+    END
+ORDER BY 2 DESC;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>age_group</th><th>Age_Distribution</th></tr></thead>
+                        <tbody>
+                            <tr><td>Adult</td><td>7,220</td></tr>
+                            <tr><td>Senior Citizen</td><td>5,351</td></tr>
+                            <tr><td>Pediatric</td><td>37</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            <!-- ===== Additional Queries (expandable) ===== -->
+            <h5>More From The Analysis</h5>
+            <p>The rest of the analysis, condensed. Expand any card to see the query.</p>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">05</span>
+                        <span class="sql-more-title">Discharges by gender</span>
+                    </span>
+                    <span class="sql-more-tag">Aggregation</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    A simple grouped count of discharges by gender.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    GENDER, 
+    COUNT(*) AS Gender_Distribution
+FROM vw_admissiondata
+WHERE outcome = 'Discharge'
+GROUP BY gender
+ORDER BY 2 DESC;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>gender</th><th>Gender_Distribution</th></tr></thead>
+                        <tbody>
+                            <tr><td>M</td><td>7,977</td></tr>
+                            <tr><td>F</td><td>4,631</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+ 
+            <details class="sql-more-card">
+                <summary class="sql-more-toggle">
+                    <span class="sql-more-toggle-text">
+                        <span class="sql-more-num">06</span>
+                        <span class="sql-more-title">Discharges by day of the week</span>
+                    </span>
+                    <span class="sql-more-tag">Date Functions</span>
+                    <span class="sql-more-icon"></span>
+                </summary>
+                <p class="sql-more-desc">
+                    <code>DAYNAME()</code> converts the discharge date directly into a weekday
+                    name for grouping — no separate lookup table needed.
+                </p>
+                <div class="code-block-wrapper">
+                    <pre><code class="language-sql">SELECT 
+    DAYNAME(dod) AS Day_Of_Week, 
+    COUNT(*) AS Day_Distribution
+FROM vw_admissiondata
+WHERE outcome = 'Discharge'
+GROUP BY DAYNAME(dod)
+ORDER BY 2 DESC;</code></pre>
+                </div>
+                <div class="sql-results-wrap">
+                    <div class="sql-results-label">Result</div>
+                    <table class="sql-table">
+                        <thead><tr><th>Day_Of_Week</th><th>Day_Distribution</th></tr></thead>
+                        <tbody>
+                            <tr><td>Wednesday</td><td>1,947</td></tr>
+                            <tr><td>Friday</td><td>1,891</td></tr>
+                            <tr><td>Thursday</td><td>1,880</td></tr>
+                            <tr><td>Saturday</td><td>1,845</td></tr>
+                            <tr><td>Monday</td><td>1,785</td></tr>
+                            <tr><td>Tuesday</td><td>1,773</td></tr>
+                            <tr><td>Sunday</td><td>1,486</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+ 
+            <!-- ===== Findings ===== -->
+            <h5>Key Takeaways</h5>
+            <ul class="sql-takeaways">
+                <li>
+                    About 7.7% of all admission records (1,217 of 15,757) were exact
+                    duplicates — same patient, same admission date, same discharge date — caught
+                    with a <code>ROW_NUMBER()</code> window function before any metric was
+                    calculated. Left in, they would have inflated every count and quietly skewed
+                    every average in this analysis.
+                </li>
+                <li>
+                    Average length of stay across the cleaned dataset lands at exactly 7
+                    days, a reasonable benchmark for a cardiac specialty hospital where many
+                    admissions involve monitoring or intervention rather than same-day treatment.
+                </li>
+                <li>
+                    Discharges drop off sharply on Sundays (1,486) — roughly 20% below the
+                    Monday–Friday average — consistent with hospitals generally avoiding
+                    non-urgent discharges when outpatient follow-up and staffing are reduced over
+                    the weekend.
+                </li>
+                <li>
+                    The raw export used three different inconsistent placeholders for missing
+                    lab values (<code>"NULL"</code>, <code>"EMPTY"</code>, and a typo
+                    <code>"NILL"</code>) and silently mixed two date formats in the same column —
+                    a reminder that real-world hospital exports rarely arrive clean enough to load
+                    as-is, and that cleaning logic needs to be verified against an independent
+                    column (here, <code>duration_of_stay</code>) rather than assumed.
                 </li>
             </ul>
  
