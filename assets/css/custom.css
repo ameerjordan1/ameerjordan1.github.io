@@ -464,6 +464,20 @@
   display: none;
 }
 
+@media screen and (max-width: 736px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #about .oval-portrait {
+    width: 150px;
+    height: 190px;
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
 /* ── SQL Query Cards ── */
 .sql-meta-row {
   display: flex;

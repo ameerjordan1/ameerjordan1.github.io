@@ -73,7 +73,7 @@
 							<article id="projects">
 								<h2 class="major">Projects</h2>
 								<span class="image main"><img src="Data Science Banner.jpg" alt="" /></span>
-								<p>Here you'll find a collection of my work spanning two core disciplines of the data field. Use the buttons below to browse between Data Science projects — where I apply machine learning, predictive modeling, and statistical analysis — and Data Analysis projects — where I focus on uncovering insights through data cleaning, visualization, and reporting. Each project reflects my approach to turning raw data into meaningful results.</p>
+								<p>Here's a collection of things I've built and explored across two areas I really enjoy — Data Science, where I get to work with machine learning and predictive modeling, and Data Analysis, where I dig into datasets to find patterns and tell a story with the numbers. Use the buttons below to switch between them.</p>
   
 								<!-- Category Toggle -->
 									<div class="project-toggle">
@@ -474,7 +474,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         <div class="modal-content">
             <h4>Sentiment Analysis with NLTK & HuggingFace Transformers</h4>
-            <p class="modal-description">This project applies Natural Language Processing techniques to classify sentiment in over 500,000 Amazon product reviews. Using both NLTK's VADER model and a HuggingFace RoBERTa transformer, review text is scored and compared across positive, neutral, and negative categories, with results visualized against star ratings.</p>
+            <p class="modal-description">I used NLP to classify sentiment across 500,000+ Amazon product reviews, comparing two different approaches — NLTK's VADER model and a HuggingFace RoBERTa transformer. The goal was to see how well each one could pick up on whether a review was positive, neutral, or negative, and then check how that lined up with the star ratings people actually gave.</p>
 
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -501,7 +501,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         <div class="modal-content">
             <h4>Fake News Detection System</h4>
-            <p class="modal-description">This project builds a machine learning pipeline that classifies news articles as Fake or Real based on their text content. The workflow covers loading and merging labeled fake/real news datasets, cleaning and preprocessing article text, vectorizing it with TF-IDF, and training multiple classification models to compare performance.</p>
+            <p class="modal-description">I built a machine learning pipeline to classify news articles as Fake or Real using their text content. I merged labeled datasets, cleaned and preprocessed the article text, vectorized it with TF-IDF, and then trained and compared four different classification models to see which ones held up best.</p>
 
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -529,7 +529,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
  
         <div class="modal-content">
             <h4>Movie Recommendation System</h4>
-            <p class="modal-description">This project builds a content-based movie recommender using cosine similarity over movie metadata. A user selects a movie they like, and the system returns the top 5 most similar titles along with live poster artwork pulled from The Movie Database (TMDB) API. The recommendation logic and similarity matrix were developed in the notebook below, then deployed as an interactive Streamlit app.</p>
+            <p class="modal-description">I built a content-based movie recommender that uses cosine similarity on movie metadata. You pick a movie you like, and it returns the 5 most similar titles along with live poster art pulled from the TMDB API. I developed the recommendation logic in a Jupyter notebook and then deployed the whole thing as an interactive Streamlit app.</p>
  
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -571,11 +571,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         <div class="modal-content">
             <h4>Walmart Sales Analysis</h4>
             <p class="modal-description">
-                An exploratory analysis of multi-branch retail transaction data using MySQL —
-                covering payment behavior, category performance, peak shopping windows, and
-                year-over-year revenue trends across branches. SQL was used for data extraction
-                and aggregation; the Jupyter notebook below covers further cleaning, visualization,
-                and summary statistics.
+                I dug into multi-branch retail transaction data using MySQL, looking at things
+                like which payment methods customers actually use, which product categories perform
+                best, when stores are busiest, and how revenue shifted year over year across
+                branches. The Jupyter notebook below covers additional cleaning, visualizations,
+                and summary stats.
             </p>
  
             <div class="sql-meta-row">
@@ -925,19 +925,19 @@ ORDER BY branch, num_invoices DESC;</code></pre>
             <h5>Key Takeaways</h5>
             <ul class="sql-takeaways">
                 <li>
-                    Credit card and e-wallet payments together account for the large
-                    majority of transactions and units sold — cash is a minority channel
-                    and could shape staffing or terminal allocation decisions.
+                    Credit cards and e-wallets together made up the overwhelming majority
+                    of transactions — cash was barely in the picture. That kind of split
+                    could actually influence decisions about staffing and checkout setups.
                 </li>
                 <li>
-                    Top-rated categories vary meaningfully by branch, suggesting
-                    location-specific merchandising or local demand differences rather
-                    than a single chain-wide "best" category.
+                    The highest-rated product categories weren't the same across every
+                    branch, which tells me it's less about one universally popular category
+                    and more about what's resonating in each specific location.
                 </li>
                 <li>
-                    Several branches showed double-digit revenue declines from 2022 to
-                    2023, flagged via a simple two-CTE join — a pattern worth
-                    investigating further at the branch-operations level.
+                    A handful of branches saw double-digit revenue drops from 2022 to 2023.
+                    I caught that with a two-CTE year-over-year comparison — definitely something
+                    worth looking into more at the branch level.
                 </li>
             </ul>
  
@@ -968,12 +968,12 @@ ORDER BY branch, num_invoices DESC;</code></pre>
         <div class="modal-content">
             <h4>Netflix Content Analysis</h4>
             <p class="modal-description">
-                An exploratory analysis of Netflix's global content catalog (8,807 titles) using
-                MySQL — covering content-type distribution, ratings, genre and country breakdowns,
-                cast/director lookups, and content-categorization by description keywords. The
-                dataset stores several fields (country, cast, listed_in) as comma-separated lists
-                within a single column, so a recurring theme of this project is splitting those
-                lists out using string functions so each value can be counted individually.
+                I was curious what Netflix's content catalog actually looks like under the hood,
+                so I queried 8,807 titles in MySQL — looking at the movie vs. TV show split,
+                ratings, which genres and countries dominate, and even flagging content by
+                keywords in the description. One thing that kept coming up: fields like country,
+                cast, and genre were stored as comma-separated values in a single column, so I
+                had to split those out with string functions before I could count anything properly.
             </p>
  
             <div class="sql-meta-row">
@@ -1435,29 +1435,25 @@ GROUP BY 1;</code></pre>
             <ul class="sql-takeaways">
                 <li>
                     Movies outnumber TV shows by more than 2-to-1 (6,131 vs. 2,676), and
-                    TV-MA is the single most common rating for both content
-                    types — suggesting Netflix's catalog skews toward mature audiences across
-                    the board, not just in one format.
+                    TV-MA is the most common rating across both — which honestly makes sense
+                    given how much of Netflix's brand is built around adult-oriented content.
                 </li>
                 <li>
-                    Content is heavily concentrated by country of origin: the
-                    United States alone accounts for roughly 3,683 titles —
-                    more than triple the next closest country (India, ~1,045) — even after
-                    splitting multi-country co-productions so each contributing country is
-                    counted separately.
+                    The US absolutely dominates by country of origin with ~3,683 titles —
+                    more than triple India's ~1,045, which came in second. And that's after
+                    splitting co-productions so every contributing country gets counted.
                 </li>
                 <li>
-                    India's content additions were extremely front-loaded: 2018
-                    alone represents about 34% of every Indian title ever added to the platform,
-                    with a steady decline in following years — a pattern worth investigating
-                    against Netflix's regional licensing strategy over time.
+                    India's content on Netflix was heavily front-loaded — 2018 alone made up
+                    about 34% of all Indian titles ever added to the platform, and it's been
+                    declining since. That pattern made me curious about how Netflix's regional
+                    licensing deals have shifted over time.
                 </li>
                 <li>
-                    Several core fields (country, cast, listed_in)
-                    store multiple values as comma-separated text rather than a normalized
-                    structure, which meant most "count by X" questions in this project required
-                    first splitting those fields into individual rows with a numbers-table join
-                    before any aggregation could happen.
+                    The messiest part of this dataset was that country, cast, and genre were
+                    all stored as comma-separated strings in one column. Almost every "count by X"
+                    question required splitting those fields into individual rows first — good
+                    practice for dealing with non-normalized data.
                 </li>
             </ul>
  
@@ -1475,10 +1471,11 @@ GROUP BY 1;</code></pre>
         <div class="modal-content">
             <h4>Hospital Admission Data Analysis</h4>
             <p class="modal-description">
-                An end-to-end MySQL project on 15,757 cardiac admission records from Hero DMC
-                Heart Institute — starting from a raw CSV export riddled with encoding and
-                formatting issues, through a SQL deduplication layer, to a set of discharge and
-                length-of-stay metrics. 
+                I worked with 15,757 cardiac admission records from Hero DMC Heart Institute —
+                starting from a raw CSV that had encoding and formatting issues straight out of
+                the gate. After cleaning it up in MySQL and removing duplicates, I calculated
+                discharge metrics and length-of-stay stats to get a clearer picture of how
+                patients moved through the hospital.
             </p>
  
             <div class="sql-meta-row">
@@ -1797,24 +1794,22 @@ ORDER BY 2 DESC;</code></pre>
             <h5>Key Takeaways</h5>
             <ul class="sql-takeaways">
                 <li>
-                    About 7.7% of all admission records (1,217 of 15,757) were exact
-                    duplicates — same patient, same admission date, same discharge date — caught
-                    with a ROW_NUMBER() window function before any metric was
-                    calculated. Left in, they would have inflated every count and quietly skewed
-                    every average in this analysis.
+                    About 7.7% of the records (1,217 out of 15,757) were exact duplicates —
+                    same patient, same admission and discharge dates. I caught them with a
+                    ROW_NUMBER() window function before running any calculations. Had I left
+                    them in, they would've quietly thrown off every count and average in the analysis.
                 </li>
                 <li>
-                    Average length of stay across the cleaned dataset lands at exactly 7
-                    days, a reasonable benchmark for a cardiac specialty hospital where many
-                    admissions involve monitoring or intervention rather than same-day treatment.
+                    The average length of stay came out to exactly 7 days, which makes sense
+                    for a cardiac specialty hospital — most patients aren't in and out same-day,
+                    they're there for monitoring or some kind of intervention.
                 </li>
                 <li>
-                    Discharges drop off sharply on Sundays (1,486) — roughly 20% below the
-                    Monday–Friday average — consistent with hospitals generally avoiding
-                    non-urgent discharges when outpatient follow-up and staffing are reduced over
-                    the weekend.
+                    Discharges took a noticeable dip on Sundays (1,486 total) — about 20% below
+                    the weekday average. That lines up with what you'd expect: hospitals tend to
+                    hold off on non-urgent discharges over the weekend when follow-up care and
+                    staffing are more limited.
                 </li>
-                
             </ul>
  
         </div>
