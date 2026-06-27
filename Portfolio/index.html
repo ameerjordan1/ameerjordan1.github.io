@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -58,7 +59,17 @@
 									<div class="timeline-item">
 										<div class="timeline-marker"></div>
 										<div class="timeline-content">
-											<span class="timeline-date">Sep 2025 – Present</span>
+											<span class="timeline-date">June 2026 – Present</span>
+											<h3>Data Entry Specialist</h3>
+											<h4>Labcorp</h4>
+											<p>Accurately verified, interpreted, and entered data from source documents into company systems using keyboards, scanners, and computer applications, maintaining a high standard of data integrity and quality. Compiled, sorted, and organized information to ensure completeness and accuracy, while identifying and correcting errors or inconsistencies in a timely manner. Utilized Microsoft Office applications, including Word and Excel, to support documentation and reporting tasks.</p>
+										</div>
+									</div>
+
+									<div class="timeline-item">
+										<div class="timeline-marker"></div>
+										<div class="timeline-content">
+											<span class="timeline-date">Sep 2025 – July 2026</span>
 											<h3>Data Coordinator Associate</h3>
 											<h4>DraftKings</h4>
 											<p>Monitored and verified real-time sports data feeds during live sporting events to ensure accuracy and consistency across internal systems and customer-facing platforms. Collaborated with operations and analytics teams to maintain data integrity, support live event operations, and improve workflow efficiency.</p>    
@@ -67,134 +78,12 @@
 								</div>
 							</article>
 
-<style>
-  .timeline {
-    position: relative;
-    padding: 1rem 0;
-  }
-
-  /* Vertical line */
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0.65rem;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .timeline-item {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .timeline-marker {
-    flex-shrink: 0;
-    width: 1.35rem;
-    height: 1.35rem;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    background: #1b1f22;
-    margin-top: 0.25rem;
-    position: relative;
-    z-index: 1;
-    transition: background 0.3s ease;
-  }
-
-  .timeline-item.visible .timeline-marker {
-    background: #ffffff;
-  }
-
-  .timeline-content {
-    flex: 1;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .timeline-item:last-child .timeline-content {
-    border-bottom: none;
-  }
-
-  .timeline-date {
-    display: block;
-    font-size: 0.7rem;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 0.4rem;
-  }
-
-  .timeline-content h3 {
-    font-size: 0.95rem;
-    margin: 0 0 0.2rem 0;
-    letter-spacing: 0.1rem;
-  }
-
-  .timeline-content h4 {
-    font-size: 0.75rem;
-    opacity: 0.7;
-    margin: 0 0 0.75rem 0;
-    font-weight: 300;
-    letter-spacing: 0.1rem;
-  }
-
-  .timeline-content p {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin: 0;
-    opacity: 0.85;
-  }
-</style>
-
-<script>
-  // Animate timeline items as they scroll into view inside the article
-  const experienceArticle = document.getElementById('experience');
-
-  function checkTimelineVisibility() {
-    const items = experienceArticle.querySelectorAll('.timeline-item');
-    const containerRect = experienceArticle.getBoundingClientRect();
-
-    items.forEach((item, index) => {
-      const itemRect = item.getBoundingClientRect();
-      const isVisible = itemRect.top < containerRect.bottom - 20 &&
-                        itemRect.bottom > containerRect.top + 20;
-      if (isVisible) {
-        setTimeout(() => item.classList.add('visible'), index * 150);
-      }
-    });
-  }
-
-  // Watch for the experience article becoming active, then trigger animation
-  const expObserver = new MutationObserver(() => {
-    if (experienceArticle.classList.contains('active')) {
-      setTimeout(checkTimelineVisibility, 100);
-      experienceArticle.addEventListener('scroll', checkTimelineVisibility);
-    } else {
-      // Reset when closed
-      experienceArticle.querySelectorAll('.timeline-item')
-        .forEach(item => item.classList.remove('visible'));
-      experienceArticle.removeEventListener('scroll', checkTimelineVisibility);
-    }
-  });
-
-  expObserver.observe(experienceArticle, { attributes: true });
-</script>
 
 						<!-- Projects -->
 							<article id="projects">
 								<h2 class="major">Projects</h2>
 								<span class="image main"><img src="Data Science Banner.jpg" alt="" /></span>
-								<p>Here you'll find a collection of my work spanning two core disciplines of the data field. Use the buttons below to browse between Data Science projects — where I apply machine learning, predictive modeling, and statistical analysis — and Data Analysis projects — where I focus on uncovering insights through data cleaning, visualization, and reporting. Each project reflects my approach to turning raw data into meaningful results.</p>
+								<p>Here's a collection of things I've built and explored across two areas I really enjoy — Data Science, where I get to work with machine learning and predictive modeling, and Data Analysis, where I dig into datasets to find patterns and tell a story with the numbers. Use the buttons below to switch between them.</p>
   
 								<!-- Category Toggle -->
 									<div class="project-toggle">
@@ -289,448 +178,6 @@
 										</div>
 									</article>
 
-<style>
-  .project-toggle {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1.5em;
-  }
-
-  .toggle-btn {
-    flex: 1;
-    padding: 0.6em 1.2em;
-    background: transparent;
-    border: 2px solid #ffffff44;
-    color: inherit;
-    font-size: 0.85em;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-align: center;        /* force center alignment */
-    line-height: 1;            /* prevent vertical offset */
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;   /* centers text inside flex button */
-  }
-
-  .toggle-btn:hover {
-    background: #ffffff22;
-    border-color: #ffffff88;
-  }
-
-  .toggle-btn.active {
-    background: #ffffff22;
-    border-color: #fff;
-    font-weight: bold;
-  }
-
-  .project-category {
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-#projects .image.main {
-  max-height: 200px;
-  overflow: hidden;
-}
-
-#projects .image.main img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  object-position: center;
-}
-  /* ── Project Card ── */
-  .project-card {
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 6px;
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
-
-  .project-card:hover {
-    border-color: rgba(255,255,255,0.7);
-  }
-
-  /* Preview (collapsed state) */
-  .project-preview {
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .project-preview-inner {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  .project-icon {
-    font-size: 1.3rem;
-    opacity: 0.75;
-    flex-shrink: 0;
-  }
-
-  .project-title {
-    margin: 0;
-    font-size: 0.85rem;
-    letter-spacing: 0.1rem;
-    flex: 1;
-  }
-
-  .project-subtitle {
-    margin: 0;
-    font-size: 0.7rem;
-    opacity: 0.55;
-    letter-spacing: 0.08rem;
-    flex-shrink: 0;
-  }
-
-  .project-hint {
-    font-size: 0.65rem;
-    letter-spacing: 0.12rem;
-    text-transform: uppercase;
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-    margin-left: 0.75rem;
-  }
-
-  .project-card:hover .project-hint {
-    opacity: 0.5;
-  }
-
-  /* Body (expanded state) */
-  .project-body {
-    display: none;
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    position: relative;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .project-body h4 {
-    margin: 1rem 0 0.5rem 0;
-    font-size: 0.9rem;
-  }
-
-  .project-body h5 {
-    margin: 1rem 0 0.4rem 0;
-    font-size: 0.75rem;
-    opacity: 0.7;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-  }
-
-  .project-body p {
-    font-size: 0.82rem;
-    line-height: 1.65;
-    margin-bottom: 0.75rem;
-    opacity: 0.9;
-  }
-
-  .project-body pre {
-    background: rgba(0,0,0,0.3);
-    border-radius: 4px;
-    padding: 1rem;
-    font-size: 0.75rem;
-    overflow-x: auto;
-    margin-bottom: 1rem;
-  }
-
-  .project-card.open .project-body {
-    display: block;
-  }
-
-  /* Close button inside expanded card */
-  .project-close {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.75rem;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    color: rgba(255,255,255,0.4);
-    font-size: 0.8rem;
-    cursor: pointer;
-    height: auto;
-    line-height: 1;
-    padding: 0.25rem 0.4rem;
-    letter-spacing: 0;
-    transition: color 0.2s;
-  }
-
-  .project-close:hover {
-    color: #fff;
-    background: transparent;
-    box-shadow: none;
-  }
-
-.notebook-wrapper {
-    position: relative;
-    width: 100%;
-    margin-top: 1rem;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.15);
-  }
-
-  .notebook-frame {
-    width: 100%;
-    height: 600px;
-    border: none;
-    background: #fff;
-    display: block;
-    border-radius: 4px;
-  }
-  /* ── Modal Overlay ── */
-  .project-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .project-modal.open {
-    display: flex;
-  }
-
-  .modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-
-  .modal-container {
-    position: relative;
-    z-index: 1;
-    background: rgba(27, 31, 34, 0.97);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 6px;
-    width: 92vw;
-    max-width: 1200px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    animation: modalIn 0.25s ease;
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.97) translateY(10px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
-    box-shadow: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.85rem;
-    cursor: pointer;
-    height: 2rem;
-    width: 2rem;
-    line-height: 1;
-    padding: 0;
-    border-radius: 50%;
-    letter-spacing: 0;
-    transition: background 0.2s, color 0.2s;
-    z-index: 2;
-  }
-
-  .modal-close:hover {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    box-shadow: none;
-  }
-
-  .modal-content {
-    padding: 2rem 2rem 2rem 2rem;
-    overflow-y: auto;
-    flex: 1;
-  }
-
-  .modal-content h4 {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-    padding-right: 2rem; /* avoid overlap with close btn */
-  }
-
-  .modal-content h5 {
-    font-size: 0.72rem;
-    opacity: 0.6;
-    letter-spacing: 0.18rem;
-    text-transform: uppercase;
-    margin: 1.5rem 0 0.5rem 0;
-  }
-
-  .modal-description {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    opacity: 0.85;
-    margin-bottom: 0;
-  }
-
-  .modal-content p {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    opacity: 0.85;
-    margin-bottom: 0;
-  }
-
-  /* Notebook fills available modal space */
-  .modal-content .notebook-wrapper {
-    width: 100%;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 0.5rem;
-  }
-
-  .modal-content .notebook-frame {
-    width: 100%;
-    height: 65vh;
-    border: none;
-    background: #fff;
-    display: block;
-  }
-  /* Force modal to cover full viewport and center its container */
-   .project-modal {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-
-  .project-modal.open {
-    display: flex;
-  }
-
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-  }
-
-  .modal-container {
-    position: relative;
-    margin: auto;
-    width: 92vw;
-    max-width: 92vw;
-    height: 90vh;
-  }
-
-  .modal-content .notebook-frame {
-    height: 70vh;
-  }
-  .code-block-wrapper {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 4px;
-    margin: 0.5rem 0 1.5rem 0;
-}
-
-.code-block-wrapper pre {
-    margin: 0;
-    padding: 1rem;
-    font-size: 0.78rem;
-    line-height: 1.6;
-}
-
-.code-block-wrapper code {
-    font-family: 'Courier New', Courier, monospace;
-}
-</style>
-
-<script>
-  function showCategory(category, btn) {
-    const allCategories = document.querySelectorAll('.project-category');
-    const allButtons = document.querySelectorAll('.toggle-btn');
-    const target = document.getElementById(category);
-
-    // If already active, toggle it off
-    if (btn.classList.contains('active')) {
-      target.style.display = 'none';
-      btn.classList.remove('active');
-      return;
-    }
-
-    // Hide all, deactivate all buttons
-    allCategories.forEach(el => el.style.display = 'none');
-    allButtons.forEach(b => b.classList.remove('active'));
-
-    // Show selected
-    target.style.display = 'block';
-    btn.classList.add('active');
-  }
-  // Reset projects section when it closes
-  function resetProjects() {
-    document.querySelectorAll('.project-category').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-  }
-
-  // Watch for the projects article being closed
-  const projectsArticle = document.getElementById('projects');
-
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'class') {
-        const isActive = projectsArticle.classList.contains('active');
-        if (!isActive) {
-          resetProjects();
-        }
-      }
-    });
-  });
-
-  observer.observe(projectsArticle, { attributes: true });
-
-  function toggleProject(card) {
-    card.classList.toggle('open');
-  }
-
-  function closeProject(event, btn) {
-    event.stopPropagation(); // prevent card toggle from firing
-    btn.closest('.project-card').classList.remove('open');
-  }
-   function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden'; // prevent background scroll
-  }
-
- function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow = '';
-
-    setTimeout(function() {
-        $('article').removeClass('active').hide();
-        var $projects = $('#projects');
-        $projects.show();
-        $projects.addClass('active');
-    }, 50);
-}
-  
-</script>
 							</article>
 
 						
@@ -748,317 +195,6 @@
 								</div>
 							</article>
 
-<style>
-  .about-content {
-    display: flex;
-    align-items: center;
-    gap: 2em;
-  }
-
-  .about-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;  /* stacks paragraphs vertically */
-    gap: 1em;                /* space between paragraphs */
-  }
-
-  .about-text p {
-    margin: 0;
-  }
-
-  #about .oval-portrait {
-    width: 180px;
-    height: 230px;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 50%;
-    flex-shrink: 0;
-    background: transparent;
-    box-shadow: none;
-	align-self: flex-start;  
-  	margin-top: -0.5rem; 
-  }
-
-  #about .image.main {
-    display: none;
-  }
-
-
-</style>
-
-<style>
-  /* ===== Walmart SQL section — matches dark portfolio theme ===== */
-
-  .sql-meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1rem 0 1.5rem;
-  }
-
-  .sql-chip {
-    border: 1px solid rgba(255,255,255,0.25);
-    padding: 0.3rem 0.85rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.1rem;
-    text-transform: uppercase;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    opacity: 0.85;
-  }
-
-  /* ----- Schema table ----- */
- .sql-schema-table {
-  max-width: 460px;
-  margin: 0 auto 1.5rem;
-}
-
-  /* ----- Query cards ----- */
-  .sql-query-card {
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-
-  .sql-query-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .sql-query-num {
-    font-weight: bold;
-    font-size: 1.4rem;
-    opacity: 0.35;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .sql-query-head-text { flex: 1; }
-
-  .sql-query-title {
-    font-weight: 600;
-    font-size: 0.88rem;
-    letter-spacing: 0.05rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .sql-query-desc {
-    font-size: 0.78rem;
-    opacity: 0.65;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .sql-stamp {
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 4px;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    padding: 0.25rem 0.55rem;
-    opacity: 0.7;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .sql-query-card .code-block-wrapper {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  /* ----- Results / schema tables ----- */
-  .sql-results-wrap {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .sql-results-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14rem;
-    opacity: 0.5;
-    margin-bottom: 0.6rem;
-  }
-
-  table.sql-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.78rem;
-  }
-
-  table.sql-table th,
-  table.sql-table td {
-    text-align: left;
-    padding: 0.45rem 0.7rem;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    white-space: nowrap;
-  }
-
-  table.sql-table th {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.65rem;
-    letter-spacing: 0.08rem;
-    opacity: 0.55;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-  }
-
-  table.sql-table tr:last-child td { border-bottom: none; }
-
-  table.sql-table tfoot td {
-    border-top: 1px dashed rgba(255,255,255,0.15);
-    border-bottom: none;
-    opacity: 0.6;
-    font-style: italic;
-  }
-
-  .sql-rank-1 { color: #fff; font-weight: 700; }
-
-  /* ----- Expandable "More" cards ----- */
-  .sql-more-card {
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-  }
-
-  .sql-more-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.85rem 1.1rem;
-    background: rgba(255,255,255,0.03);
-    cursor: pointer;
-    list-style: none;
-    font-size: 0.82rem;
-  }
-
-  .sql-more-toggle::-webkit-details-marker { display: none; }
-
-  .sql-more-toggle-text {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-  }
-
-  .sql-more-num {
-    font-weight: bold;
-    opacity: 0.4;
-    font-size: 0.9rem;
-  }
-
-  .sql-more-title {
-    font-weight: 600;
-    letter-spacing: 0.03rem;
-  }
-
-  .sql-more-tag {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    opacity: 0.6;
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 999px;
-    padding: 0.15rem 0.55rem;
-    margin-left: auto;
-    white-space: nowrap;
-  }
-
-  .sql-more-icon {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    border: 1px solid rgba(255,255,255,0.4);
-    border-radius: 50%;
-    position: relative;
-  }
-
-  .sql-more-icon::before,
-  .sql-more-icon::after {
-    content: "";
-    position: absolute;
-    background: rgba(255,255,255,0.7);
-    transition: transform 0.2s ease;
-  }
-
-  .sql-more-icon::before {
-    top: 50%; left: 4px; right: 4px; height: 1px;
-    transform: translateY(-50%);
-  }
-
-  .sql-more-icon::after {
-    left: 50%; top: 4px; bottom: 4px; width: 1px;
-    transform: translateX(-50%);
-  }
-
-  .sql-more-card[open] .sql-more-icon::after { transform: translateX(-50%) scaleY(0); }
-  .sql-more-card[open] .sql-more-toggle { border-bottom: 1px solid rgba(255,255,255,0.1); }
-
-  .sql-more-desc {
-    padding: 0.85rem 1.1rem 0;
-    font-size: 0.78rem;
-    opacity: 0.65;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .sql-more-card .code-block-wrapper {
-    margin: 0.85rem 1.1rem 1.1rem;
-    border-radius: 4px;
-  }
-
-  /* ----- Takeaways ----- */
-  .sql-takeaways {
-    list-style: none;
-    counter-reset: sql-takeaway;
-    margin: 1rem 0 0;
-    padding: 0;
-  }
-
-  .sql-takeaways li {
-    counter-increment: sql-takeaway;
-    display: flex;
-    gap: 1rem;
-    padding: 0.9rem 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    font-size: 0.82rem;
-    line-height: 1.7;
-    opacity: 0.85;
-  }
-
-  .sql-takeaways li:first-child { border-top: none; }
-
-  .sql-takeaways li::before {
-    content: counter(sql-takeaway, decimal-leading-zero);
-    font-weight: bold;
-    opacity: 0.35;
-    flex-shrink: 0;
-    font-size: 0.85rem;
-  }
-
-  /* ----- Notebook embed ----- */
-  .notebook-wrapper {
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 1rem;
-  }
-
-  .notebook-frame {
-    width: 100%;
-    height: 600px;
-    border: none;
-    background: #fff;
-  }
-</style>
 
 						<!-- Contact -->
 							<article id="contact">
@@ -1348,7 +484,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         <div class="modal-content">
             <h4>Sentiment Analysis with NLTK & HuggingFace Transformers</h4>
-            <p class="modal-description">This project applies Natural Language Processing techniques to classify sentiment in over 500,000 Amazon product reviews. Using both NLTK's VADER model and a HuggingFace RoBERTa transformer, review text is scored and compared across positive, neutral, and negative categories, with results visualized against star ratings.</p>
+            <p class="modal-description">I used NLP to classify sentiment across 500,000+ Amazon product reviews, comparing two different approaches — NLTK's VADER model and a HuggingFace RoBERTa transformer. The goal was to see how well each one could pick up on whether a review was positive, neutral, or negative, and then check how that lined up with the star ratings people actually gave.</p>
 
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -1375,7 +511,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         <div class="modal-content">
             <h4>Fake News Detection System</h4>
-            <p class="modal-description">This project builds a machine learning pipeline that classifies news articles as Fake or Real based on their text content. The workflow covers loading and merging labeled fake/real news datasets, cleaning and preprocessing article text, vectorizing it with TF-IDF, and training multiple classification models to compare performance.</p>
+            <p class="modal-description">I built a machine learning pipeline to classify news articles as Fake or Real using their text content. I merged labeled datasets, cleaned and preprocessed the article text, vectorized it with TF-IDF, and then trained and compared four different classification models to see which ones held up best.</p>
 
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -1403,7 +539,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
  
         <div class="modal-content">
             <h4>Movie Recommendation System</h4>
-            <p class="modal-description">This project builds a content-based movie recommender using cosine similarity over movie metadata. A user selects a movie they like, and the system returns the top 5 most similar titles along with live poster artwork pulled from The Movie Database (TMDB) API. The recommendation logic and similarity matrix were developed in the notebook below, then deployed as an interactive Streamlit app.</p>
+            <p class="modal-description">I built a content-based movie recommender that uses cosine similarity on movie metadata. You pick a movie you like, and it returns the 5 most similar titles along with live poster art pulled from the TMDB API. I developed the recommendation logic in a Jupyter notebook and then deployed the whole thing as an interactive Streamlit app.</p>
  
             <h5>Notebook</h5>
             <div class="notebook-wrapper">
@@ -1445,11 +581,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         <div class="modal-content">
             <h4>Walmart Sales Analysis</h4>
             <p class="modal-description">
-                An exploratory analysis of multi-branch retail transaction data using MySQL —
-                covering payment behavior, category performance, peak shopping windows, and
-                year-over-year revenue trends across branches. SQL was used for data extraction
-                and aggregation; the Jupyter notebook below covers further cleaning, visualization,
-                and summary statistics.
+                I dug into multi-branch retail transaction data using MySQL, looking at things
+                like which payment methods customers actually use, which product categories perform
+                best, when stores are busiest, and how revenue shifted year over year across
+                branches. The Jupyter notebook below covers additional cleaning, visualizations,
+                and summary stats.
             </p>
  
             <div class="sql-meta-row">
@@ -1799,19 +935,19 @@ ORDER BY branch, num_invoices DESC;</code></pre>
             <h5>Key Takeaways</h5>
             <ul class="sql-takeaways">
                 <li>
-                    Credit card and e-wallet payments together account for the large
-                    majority of transactions and units sold — cash is a minority channel
-                    and could shape staffing or terminal allocation decisions.
+                    Credit cards and e-wallets together made up the overwhelming majority
+                    of transactions — cash was barely in the picture. That kind of split
+                    could actually influence decisions about staffing and checkout setups.
                 </li>
                 <li>
-                    Top-rated categories vary meaningfully by branch, suggesting
-                    location-specific merchandising or local demand differences rather
-                    than a single chain-wide "best" category.
+                    The highest-rated product categories weren't the same across every
+                    branch, which tells me it's less about one universally popular category
+                    and more about what's resonating in each specific location.
                 </li>
                 <li>
-                    Several branches showed double-digit revenue declines from 2022 to
-                    2023, flagged via a simple two-CTE join — a pattern worth
-                    investigating further at the branch-operations level.
+                    A handful of branches saw double-digit revenue drops from 2022 to 2023.
+                    I caught that with a two-CTE year-over-year comparison — definitely something
+                    worth looking into more at the branch level.
                 </li>
             </ul>
  
@@ -1842,12 +978,12 @@ ORDER BY branch, num_invoices DESC;</code></pre>
         <div class="modal-content">
             <h4>Netflix Content Analysis</h4>
             <p class="modal-description">
-                An exploratory analysis of Netflix's global content catalog (8,807 titles) using
-                MySQL — covering content-type distribution, ratings, genre and country breakdowns,
-                cast/director lookups, and content-categorization by description keywords. The
-                dataset stores several fields (country, cast, listed_in) as comma-separated lists
-                within a single column, so a recurring theme of this project is splitting those
-                lists out using string functions so each value can be counted individually.
+                I was curious what Netflix's content catalog actually looks like under the hood,
+                so I queried 8,807 titles in MySQL — looking at the movie vs. TV show split,
+                ratings, which genres and countries dominate, and even flagging content by
+                keywords in the description. One thing that kept coming up: fields like country,
+                cast, and genre were stored as comma-separated values in a single column, so I
+                had to split those out with string functions before I could count anything properly.
             </p>
  
             <div class="sql-meta-row">
@@ -2309,29 +1445,25 @@ GROUP BY 1;</code></pre>
             <ul class="sql-takeaways">
                 <li>
                     Movies outnumber TV shows by more than 2-to-1 (6,131 vs. 2,676), and
-                    TV-MA is the single most common rating for both content
-                    types — suggesting Netflix's catalog skews toward mature audiences across
-                    the board, not just in one format.
+                    TV-MA is the most common rating across both — which honestly makes sense
+                    given how much of Netflix's brand is built around adult-oriented content.
                 </li>
                 <li>
-                    Content is heavily concentrated by country of origin: the
-                    United States alone accounts for roughly 3,683 titles —
-                    more than triple the next closest country (India, ~1,045) — even after
-                    splitting multi-country co-productions so each contributing country is
-                    counted separately.
+                    The US absolutely dominates by country of origin with ~3,683 titles —
+                    more than triple India's ~1,045, which came in second. And that's after
+                    splitting co-productions so every contributing country gets counted.
                 </li>
                 <li>
-                    India's content additions were extremely front-loaded: 2018
-                    alone represents about 34% of every Indian title ever added to the platform,
-                    with a steady decline in following years — a pattern worth investigating
-                    against Netflix's regional licensing strategy over time.
+                    India's content on Netflix was heavily front-loaded — 2018 alone made up
+                    about 34% of all Indian titles ever added to the platform, and it's been
+                    declining since. That pattern made me curious about how Netflix's regional
+                    licensing deals have shifted over time.
                 </li>
                 <li>
-                    Several core fields (country, cast, listed_in)
-                    store multiple values as comma-separated text rather than a normalized
-                    structure, which meant most "count by X" questions in this project required
-                    first splitting those fields into individual rows with a numbers-table join
-                    before any aggregation could happen.
+                    The messiest part of this dataset was that country, cast, and genre were
+                    all stored as comma-separated strings in one column. Almost every "count by X"
+                    question required splitting those fields into individual rows first — good
+                    practice for dealing with non-normalized data.
                 </li>
             </ul>
  
@@ -2349,10 +1481,11 @@ GROUP BY 1;</code></pre>
         <div class="modal-content">
             <h4>Hospital Admission Data Analysis</h4>
             <p class="modal-description">
-                An end-to-end MySQL project on 15,757 cardiac admission records from Hero DMC
-                Heart Institute — starting from a raw CSV export riddled with encoding and
-                formatting issues, through a SQL deduplication layer, to a set of discharge and
-                length-of-stay metrics. 
+                I worked with 15,757 cardiac admission records from Hero DMC Heart Institute —
+                starting from a raw CSV that had encoding and formatting issues straight out of
+                the gate. After cleaning it up in MySQL and removing duplicates, I calculated
+                discharge metrics and length-of-stay stats to get a clearer picture of how
+                patients moved through the hospital.
             </p>
  
             <div class="sql-meta-row">
@@ -2671,24 +1804,22 @@ ORDER BY 2 DESC;</code></pre>
             <h5>Key Takeaways</h5>
             <ul class="sql-takeaways">
                 <li>
-                    About 7.7% of all admission records (1,217 of 15,757) were exact
-                    duplicates — same patient, same admission date, same discharge date — caught
-                    with a ROW_NUMBER() window function before any metric was
-                    calculated. Left in, they would have inflated every count and quietly skewed
-                    every average in this analysis.
+                    About 7.7% of the records (1,217 out of 15,757) were exact duplicates —
+                    same patient, same admission and discharge dates. I caught them with a
+                    ROW_NUMBER() window function before running any calculations. Had I left
+                    them in, they would've quietly thrown off every count and average in the analysis.
                 </li>
                 <li>
-                    Average length of stay across the cleaned dataset lands at exactly 7
-                    days, a reasonable benchmark for a cardiac specialty hospital where many
-                    admissions involve monitoring or intervention rather than same-day treatment.
+                    The average length of stay came out to exactly 7 days, which makes sense
+                    for a cardiac specialty hospital — most patients aren't in and out same-day,
+                    they're there for monitoring or some kind of intervention.
                 </li>
                 <li>
-                    Discharges drop off sharply on Sundays (1,486) — roughly 20% below the
-                    Monday–Friday average — consistent with hospitals generally avoiding
-                    non-urgent discharges when outpatient follow-up and staffing are reduced over
-                    the weekend.
+                    Discharges took a noticeable dip on Sundays (1,486 total) — about 20% below
+                    the weekday average. That lines up with what you'd expect: hospitals tend to
+                    hold off on non-urgent discharges over the weekend when follow-up care and
+                    staffing are more limited.
                 </li>
-                
             </ul>
  
         </div>
@@ -2703,21 +1834,7 @@ ORDER BY 2 DESC;</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-      <script>
-    hljs.highlightAll();
-</script>
-<script>
-    fetch('app.py')
-        .then(response => response.text())
-        .then(code => {
-            const el = document.getElementById('appcode');
-            el.textContent = code;
-            hljs.highlightElement(el);
-        })
-        .catch(() => {
-            document.getElementById('appcode').textContent = 'Could not load source file.';
-        });
-</script>
+			<script src="assets/js/custom.js"></script>
 
 	</body>
 </html>
